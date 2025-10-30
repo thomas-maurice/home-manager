@@ -8,6 +8,7 @@
     git
     go
     goimports-reviser
+    gosimports
     gofumpt
     golangci-lint
     jq
