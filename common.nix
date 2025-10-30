@@ -2,5 +2,19 @@
 
 {
   # Packages for all platforms
-  home.packages = with pkgs; [ curl kubectl wget htop btop bat jq ];
+  home.packages = with pkgs; [
+    bat
+    curl
+    git
+    go
+    goimports-reviser
+    gofumpt
+    golangci-lint
+    jq
+    kubectl
+    lazygit
+    ripgrep
+    tree
+    wget
+  ];
 }
