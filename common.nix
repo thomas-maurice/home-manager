@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Packages for all platforms
@@ -22,5 +22,17 @@
     ripgrep
     tree
     wget
+
+    # for diffs
+    nvd
   ];
+
+  home.activation.report-changes = lib.hm.dag.entryAnywhere ''
+    if [[ -n "$oldGenPath" ]]; then
+      echo ""
+      ${pkgs.nvd}/bin/nvd diff "$oldGenPath" "$newGenPath"
+    else
+      echo "First generation - nothing to compare"
+    fi
+  '';
 }
