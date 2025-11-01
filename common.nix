@@ -4,21 +4,30 @@
   # Packages for all platforms
   home.packages = with pkgs; [
     # general console environment
+    age
     atuin
     bat
     btop
     curl
+    fastfetch
     fzf
     git
+    gnupg
     htop
     jq
     lazygit
+    qrencode
+    rclone
+    rsync
     ripgrep
+    tmux
     tree
     wget
     yq-go
 
     # development
+    # qmk
+    qmk
     ## editors
     neovim
     vim
@@ -57,6 +66,9 @@
     temporal-cli
     terraform
     vault
+
+    # database stuff
+    postgresql
 
     # nix specific things
     nixd
