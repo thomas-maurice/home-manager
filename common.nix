@@ -5,10 +5,12 @@
   home.packages = with pkgs; [
     # general console environment
     age
+    asdf-vm
     atuin
     bat
     btop
     curl
+    direnv
     fastfetch
     fzf
     git
