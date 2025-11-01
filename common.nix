@@ -3,11 +3,32 @@
 {
   # Packages for all platforms
   home.packages = with pkgs; [
+    # general console environment
+    atuin
     bat
-    buf
+    btop
     curl
-    delve
+    fzf
     git
+    htop
+    jq
+    lazygit
+    ripgrep
+    tree
+    wget
+    yq-go
+
+    # development
+    ## editors
+    neovim
+    vim
+
+    ## neovim
+    luarocks
+    nodejs_24 # needed for npm
+
+    ## go 
+    delve
     go
     goimports-reviser
     gosimports
@@ -16,15 +37,35 @@
     golines
     gomodifytags
     gopls
-    jq
-    kubectl
-    lazygit
-    ripgrep
-    tree
-    wget
 
-    # for diffs
+    ## protobuf
+    buf
+    protobuf
+    protobufc
+    protoc-gen-go
+    protoc-gen-go-grpc
+
+    ## cloud stuff
+    consul
+    helm
+    k9s
+    kind
+    kubectl
+    kustomize
+    minio-client
+    sops
+    temporal-cli
+    terraform
+    vault
+
+    # nix specific things
+    nixd
+    nil
     nvd
+
+    # fonts
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.roboto-mono
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''

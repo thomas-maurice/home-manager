@@ -11,7 +11,10 @@
     homeConfigurations = {
       # Linux config
       "thomas@linux" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
         modules = [ ./home.nix ];
         extraSpecialArgs = {
           username = "thomas";
@@ -21,7 +24,10 @@
 
       # macOS config
       "thomas@mac" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+        pkgs = import nixpkgs {
+          system = "aarch64-darwin";
+          config.allowUnfree = true;
+        };
         modules = [ ./home.nix ];
         extraSpecialArgs = {
           username = "thomas";
