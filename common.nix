@@ -76,4 +76,6 @@
       echo "First generation - nothing to compare"
     fi
   '';
+
+  fonts.fontconfig.enable = true;
 }
