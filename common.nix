@@ -16,6 +16,7 @@
     htop
     jq
     lazygit
+    pwgen
     qrencode
     rclone
     rsync
