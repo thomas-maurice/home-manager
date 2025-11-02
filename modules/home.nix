@@ -12,8 +12,9 @@ in {
     if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
   home.stateVersion = "25.05";
 
-  imports = [ ./common.nix ] ++ (if isLinux then [ ./linux.nix ] else [ ])
-    ++ (if isDarwin then [ ./darwin.nix ] else [ ]);
+  imports = [ ./packages/common.nix ]
+    ++ (if isLinux then [ ./packages/linux.nix ] else [ ])
+    ++ (if isDarwin then [ ./packages/darwin.nix ] else [ ]);
 
   programs.home-manager.enable = true;
 }
