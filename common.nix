@@ -54,8 +54,10 @@
     buf
     protobuf
     protobufc
+    protoc-gen-connect-go
     protoc-gen-go
     protoc-gen-go-grpc
+    protoc-go-inject-tag
 
     ## cloud stuff
     consul
