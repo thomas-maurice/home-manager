@@ -65,11 +65,11 @@
     azure-cli
     consul
     google-cloud-sdk
-    helm
     k9s
     kind
     kubectl
     kubelogin-oidc
+    kubernetes-helm
     kustomize
     minio-client
     sops
