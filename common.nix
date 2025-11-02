@@ -74,8 +74,9 @@
     postgresql
 
     # nix specific things
-    nixd
     nil
+    nixd
+    nixfmt
     nvd
 
     # fonts
