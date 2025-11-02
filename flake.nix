@@ -12,8 +12,8 @@
   };
 
   outputs = { nixpkgs, home-manager, darwin, ... }: {
+    # Linux home-manager configuration
     homeConfigurations = {
-      # Linux config
       "thomas@linux" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
@@ -25,26 +25,27 @@
           system = "x86_64-linux";
         };
       };
+    };
 
-      darwinConfigurations."thomas@mac" = darwin.lib.darwinSystem {
-        system = "aarch64-darwin"; # Use "x86_64-darwin" for Intel Macs
-        modules = [
-          ./darwin/configuration.nix
+    # macOS nix-darwin configuration (separate from homeConfigurations!)
+    darwinConfigurations."thomas@mac" = darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      modules = [
+        ./darwin/configuration.nix
 
-          { nixpkgs.config.allowUnfree = true; }
+        { nixpkgs.config.allowUnfree = true; }
 
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.thomas = import ./modules/home.nix;
-            home-manager.extraSpecialArgs = {
-              username = "thomas";
-              system = "aarch64-darwin";
-            };
-          }
-        ];
-      };
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.thomas = import ./modules/home.nix;
+          home-manager.extraSpecialArgs = {
+            username = "thomas";
+            system = "aarch64-darwin";
+          };
+        }
+      ];
     };
   };
 }
