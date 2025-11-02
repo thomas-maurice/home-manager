@@ -9,6 +9,7 @@
     atuin
     bat
     btop
+    chezmoi
     curl
     direnv
     fastfetch
