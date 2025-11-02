@@ -60,11 +60,15 @@
     protoc-go-inject-tag
 
     ## cloud stuff
+    awscli
+    azure-cli
     consul
+    google-cloud-sdk
     helm
     k9s
     kind
     kubectl
+    kubelogin-oidc
     kustomize
     minio-client
     sops
