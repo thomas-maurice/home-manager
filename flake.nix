@@ -39,7 +39,9 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.thomas = import ./modules/home.nix;
+          home-manager.users.thomas = {
+            imports = [ ./modules/home.nix ];
+          };
           home-manager.extraSpecialArgs = {
             username = "thomas";
             system = "aarch64-darwin";

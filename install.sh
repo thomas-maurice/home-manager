@@ -37,7 +37,7 @@ if [[ "$PLATFORM" == "darwin" ]]; then
     # First-time nix-darwin installation
     if ! command -v darwin-rebuild &> /dev/null; then
         echo "Running initial nix-darwin setup..."
-        nix run nix-darwin -- switch --flake .#${USERNAME}@mac
+        sudo nix run nix-darwin -- switch --flake .#${USERNAME}@mac
         
         echo ""
         echo "✓ nix-darwin installed successfully!"
