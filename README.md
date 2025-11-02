@@ -34,3 +34,15 @@ nix-env --delete-generations old
 nix store gc --dry-run
 nix store optimise
 ```
+## Add to the zshrc
+```
+      # Source Nix
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+      
+      # Source home-manager session variables
+      if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      fi
+```
