@@ -70,4 +70,8 @@
 
   # System state version
   system.stateVersion = 5;
+
+  # leave there *rc intact
+  programs.zsh.enable = false;
+  programs.bash.enable = false;
 }
