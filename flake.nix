@@ -37,6 +37,9 @@
 
         home-manager.darwinModules.home-manager
         {
+          # needed otherwise nix-darwin will shit itself
+          users.users.thomas.home = "/Users/thomas";
+
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.thomas = import ./modules/home.nix;

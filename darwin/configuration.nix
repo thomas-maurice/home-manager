@@ -1,14 +1,13 @@
 { config, pkgs, username, system, ... }:
 
 {
-  # Enable nix-daemon
-  services.nix-daemon.enable = true;
-
   # Nix settings
   nix.settings = {
     experimental-features = "nix-command flakes";
     trusted-users = [ "@admin" ];
   };
+
+  nixpkgs.config.allowUnsupportedSystem = true;
 
   # System-wide packages
   # environment.systemPackages = with pkgs; [ vim git ];
