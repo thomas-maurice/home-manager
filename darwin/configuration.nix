@@ -11,7 +11,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # System-wide packages
-  # environment.systemPackages = with pkgs; [ vim git ];
+  environment.systemPackages = with pkgs; [ home-manager git ];
 
   # Create aliases for GUI apps in /Applications/Nix Apps
   # This makes them discoverable by Spotlight
