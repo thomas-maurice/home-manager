@@ -66,8 +66,10 @@
   # security.pam.enableSudoTouchIdAuth = true;
 
   # Fonts
-  # fonts.packages = with pkgs;
-  # [ (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; }) ];
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.roboto-mono
+  ];
 
   # System state version
   system.stateVersion = 5;

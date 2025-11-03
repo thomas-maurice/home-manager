@@ -1,12 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  # Linux-only packages
+  # macOS-only packages
   home.packages = with pkgs; [ ];
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.roboto-mono
-  ]
 }
 
