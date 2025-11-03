@@ -2,7 +2,12 @@
 
 {
   # Linux-only packages
-  home.packages = with pkgs; [ curl ];
+  home.packages = with pkgs; [
+    curl
+    # fonts
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.roboto-mono
+  ];
 
   targets.genericLinux.enable = true;
   xdg.enable = true;
