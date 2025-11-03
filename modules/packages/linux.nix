@@ -6,9 +6,9 @@
     curl
   ];
 
-  fonts.packages = [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.roboto-mono
+  fonts.packages = with pkgs; [
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.roboto-mono
   ];
 
   targets.genericLinux.enable = true;
