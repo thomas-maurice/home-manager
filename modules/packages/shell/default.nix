@@ -1,4 +1,4 @@
-{ config, ghostty, pkgs, lib, system, ... }:
+{ config, pkgs, lib, system, ... }:
 
 let
   isLinux = builtins.elem system [ "x86_64-linux" "aarch64-linux" ];
@@ -80,31 +80,19 @@ in
   home.file.".p10k.zsh".source = ./p10k.zsh;
 
   # Ghostty terminal configuration
-  programs.ghostty = {
-    enable = true;
-    package = ghostty.packages."${pkgs.stdenv.hostPlatform.system}".default;
-    settings = {
-      theme = "Adwaita Dark";
-      cursor-style-blink = true;
-      cursor-style = "block";
-      shell-integration-features = "no-cursor";
+  programs.ghostty.settings = {
+    theme = "Adwaita Dark";
+    cursor-style-blink = true;
+    cursor-style = "block";
+    shell-integration-features = "no-cursor";
 
-      # Force software rendering for systems without GPU/proper OpenGL
-      gtk-adwaita = false;
-
-      keybind = [
-        "alt+right=goto_split:right"
-        "alt+left=goto_split:left"
-        "alt+up=goto_split:top"
-        "alt+down=goto_split:bottom"
-        "ctrl+shift+o=new_split:down"
-        "ctrl+shift+e=new_split:right"
-      ];
-    };
-  };
-
-  # Set environment variable to force software rendering for Ghostty
-  home.sessionVariables = lib.mkIf isLinux {
-    LIBGL_ALWAYS_SOFTWARE = "1";
+    keybind = [
+      "alt+right=goto_split:right"
+      "alt+left=goto_split:left"
+      "alt+up=goto_split:top"
+      "alt+down=goto_split:bottom"
+      "ctrl+shift+o=new_split:down"
+      "ctrl+shift+e=new_split:right"
+    ];
   };
 }

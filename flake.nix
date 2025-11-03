@@ -9,12 +9,9 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ghostty = { 
-      url = "github:ghostty-org/ghostty";
-    };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, ghostty, ... }: {
+  outputs = { nixpkgs, home-manager, darwin, ... }: {
     # Linux home-manager configuration
     homeConfigurations = {
       "thomas@linux" = home-manager.lib.homeManagerConfiguration {
@@ -26,7 +23,6 @@
         extraSpecialArgs = {
           username = "thomas";
           system = "x86_64-linux";
-          inherit ghostty;
         };
       };
     };
@@ -50,7 +46,6 @@
           home-manager.extraSpecialArgs = {
             username = "thomas";
             system = "aarch64-darwin";
-            inherit ghostty;
           };
         }
       ];

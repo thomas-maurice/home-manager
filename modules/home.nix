@@ -1,4 +1,4 @@
-{ config, pkgs, ghostty, username, system, ... }:
+{ config, pkgs, username, system, ... }:
 
 # don't forget to source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh in 
 # the .zshrc
