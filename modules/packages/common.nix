@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Packages for all platforms
@@ -30,6 +35,9 @@
     yq-go
 
     # development
+    # cargo to compile rust stuff
+    cargo
+    rustc
     # qmk
     qmk
     ## editors
@@ -40,7 +48,7 @@
     luarocks
     nodejs_24 # needed for npm
 
-    ## go 
+    ## go
     delve
     go
     goimports-reviser
