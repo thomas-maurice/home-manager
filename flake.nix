@@ -41,14 +41,8 @@
           # needed otherwise nix-darwin will shit itself
           users.users.thomas.home = "/Users/thomas";
 
-          # home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+          home-manager.useGlobalPkgs = true;
           home-manager.users.thomas = import ./modules/home.nix;
-          home-manager.sharedModules = [
-            {
-              nixpkgs.config.allowUnfree = true;
-            }
-          ];
           home-manager.extraSpecialArgs = {
             username = "thomas";
             system = "aarch64-darwin";
