@@ -78,4 +78,24 @@ in
 
   # Manage the .p10k.zsh configuration file (vendored)
   home.file.".p10k.zsh".source = ./p10k.zsh;
+
+  # Ghostty terminal configuration
+  programs.ghostty = {
+    enable = true;
+    settings = {
+      theme = "Adwaita Dark";
+      cursor-style-blink = true;
+      cursor-style = "block";
+      shell-integration-features = "no-cursor";
+
+      keybind = [
+        "alt+right=goto_split:right"
+        "alt+left=goto_split:left"
+        "alt+up=goto_split:top"
+        "alt+down=goto_split:bottom"
+        "ctrl+shift+o=new_split:down"
+        "ctrl+shift+e=new_split:right"
+      ];
+    };
+  };
 }
