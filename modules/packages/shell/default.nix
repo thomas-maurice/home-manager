@@ -1,4 +1,4 @@
-{ config, pkgs, lib, system, ... }:
+{ config, ghostty, pkgs, lib, system, ... }:
 
 let
   isLinux = builtins.elem system [ "x86_64-linux" "aarch64-linux" ];
@@ -82,6 +82,7 @@ in
   # Ghostty terminal configuration
   programs.ghostty = {
     enable = true;
+    package = ghostty.packages."${pkgs.system}".default;
     settings = {
       theme = "Adwaita Dark";
       cursor-style-blink = true;
