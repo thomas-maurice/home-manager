@@ -31,7 +31,10 @@ in
     } // (if isLinux then {
       hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux";
       hm-clean = "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
-    } else {});
+    } else {
+      drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake .#thomas@mac";
+      hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
+    });
 
     oh-my-zsh = {
       enable = true;
@@ -53,7 +56,11 @@ in
     ];
 
     initContent = ''
-      # Source nix daemon profile
+      if [ -f "$HOME/.nix-profile/share/asdf-vm/asdf.sh" ]; then
+        . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
+      fi
+
+      # Source nix daemon profile (MUST be first for PATH)
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
@@ -64,6 +71,9 @@ in
       fi
 
       ${lib.optionalString isDarwin ''
+      # Add nix-darwin system binaries to PATH
+      export PATH="/run/current-system/sw/bin:$PATH"
+
       # Add Homebrew to PATH (after Nix binaries)
       if [ -x /opt/homebrew/bin/brew ]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -87,19 +97,22 @@ in
   home.file.".p10k.zsh".source = ./p10k.zsh;
 
   # Ghostty terminal configuration
-  programs.ghostty.settings = {
-    theme = "Adwaita Dark";
-    cursor-style-blink = true;
-    cursor-style = "block";
-    shell-integration-features = "no-cursor";
+  programs.ghostty = {
+    enable = true;
+    settings = {
+      theme = "Adwaita Dark";
+      cursor-style-blink = true;
+      cursor-style = "block";
+      shell-integration-features = "no-cursor";
 
-    keybind = [
-      "alt+right=goto_split:right"
-      "alt+left=goto_split:left"
-      "alt+up=goto_split:top"
-      "alt+down=goto_split:bottom"
-      "ctrl+shift+o=new_split:down"
-      "ctrl+shift+e=new_split:right"
-    ];
+      keybind = [
+        "alt+right=goto_split:right"
+        "alt+left=goto_split:left"
+        "alt+up=goto_split:top"
+        "alt+down=goto_split:bottom"
+        "ctrl+shift+o=new_split:down"
+        "ctrl+shift+e=new_split:right"
+      ];
+    };
   };
 }

@@ -3,6 +3,7 @@
 {
   # Linux-only packages
   home.packages = with pkgs; [
+    coreutils
     curl
     # fonts
     nerd-fonts.jetbrains-mono
@@ -16,7 +17,7 @@
   # Rebuild font cache when fonts change
   home.activation.rebuildFontCache = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if command -v fc-cache >/dev/null 2>&1; then
-      run fc-cache -fv
+      run fc-cache -fv >> /dev/null
     fi
   '';
 }
