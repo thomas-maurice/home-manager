@@ -9,7 +9,7 @@
   fonts.packages = [
     nerd-fonts.jetbrains-mono
     nerd-fonts.roboto-mono
-  ]
+  ];
 
   targets.genericLinux.enable = true;
   xdg.enable = true;
