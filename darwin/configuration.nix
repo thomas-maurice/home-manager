@@ -8,6 +8,7 @@
   };
 
   nixpkgs.config.allowUnsupportedSystem = true;
+  nixpkgs.config.allowUnfree = true;
 
   # System-wide packages
   # environment.systemPackages = with pkgs; [ vim git ];
