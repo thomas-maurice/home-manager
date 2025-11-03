@@ -63,6 +63,13 @@ in
         . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
       fi
 
+      ${lib.optionalString isDarwin ''
+      # Add Homebrew to PATH (after Nix binaries)
+      if [ -x /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
+      ''}
+
       # Enable Powerlevel10k instant prompt
       if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
         source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
