@@ -89,6 +89,9 @@ in
       cursor-style = "block";
       shell-integration-features = "no-cursor";
 
+      # Force software rendering for systems without GPU/proper OpenGL
+      gtk-adwaita = false;
+
       keybind = [
         "alt+right=goto_split:right"
         "alt+left=goto_split:left"
@@ -98,5 +101,10 @@ in
         "ctrl+shift+e=new_split:right"
       ];
     };
+  };
+
+  # Set environment variable to force software rendering for Ghostty
+  home.sessionVariables = lib.mkIf isLinux {
+    LIBGL_ALWAYS_SOFTWARE = "1";
   };
 }
