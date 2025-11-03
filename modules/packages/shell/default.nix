@@ -82,7 +82,7 @@ in
   # Ghostty terminal configuration
   programs.ghostty = {
     enable = true;
-    package = ghostty.packages."${pkgs.system}".default;
+    package = ghostty.packages."${pkgs.stdenv.hostPlatform.system}".default;
     settings = {
       theme = "Adwaita Dark";
       cursor-style-blink = true;
