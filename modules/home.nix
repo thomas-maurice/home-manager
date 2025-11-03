@@ -12,7 +12,7 @@ in {
     if isDarwin then "/Users/${username}" else "/home/${username}";
   home.stateVersion = "25.05";
 
-  imports = [ ./packages/common.nix ]
+  imports = [ ./packages/common.nix ./packages/shell ]
     ++ (if isLinux then [ ./packages/linux.nix ] else [ ])
     ++ (if isDarwin then [ ./packages/darwin.nix ] else [ ]);
 

@@ -93,10 +93,6 @@
     nixd
     nixfmt
     nvd
-
-    # fonts
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.roboto-mono
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''
