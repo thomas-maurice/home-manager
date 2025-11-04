@@ -1,48 +1,86 @@
 # `home-manager` configuration
 
-## install
+Declarative dotfiles and system configuration using Nix, home-manager, and nix-darwin.
 
-First install nix if not done yet:
-```
-sh <(curl -L https://nixos.org/nix/install) --daemon
-```
+## Quick Install
 
-Then enable flakes:
-```
-mkdir -p ~/.config/nix
-if ! grep -q "experimental-features" ~/.config/nix/nix.conf 2>/dev/null; then
-    echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-fi
+The installation script handles everything automatically:
+
+```bash
+./install.sh
 ```
 
-Then apply the config:
-```
-nix run home-manager/latest -- switch --flake .#thomas@platform
+This will:
+- Install Nix (if not already installed)
+- Enable flakes
+- Set up nix-darwin (macOS) or home-manager (Linux)
+- Apply your configuration
+
+After installation, restart your shell:
+```bash
+exec $SHELL
 ```
 
-Source the home manager envs in your .zshrc:
-```
-source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+## What's Included
+
+- **Shell configuration**: zsh with oh-my-zsh and powerlevel10k
+- **Neovim config**: Auto-cloned from https://github.com/thomas-maurice/nvim-config
+- **System packages**: Declaratively managed via Nix
+- **macOS settings**: System defaults, trackpad, dark mode, etc.
+- **Homebrew integration**: Casks and App Store apps via nix-darwin
+
+## Daily Usage
+
+After initial setup, use these aliases:
+
+- `hm` - Rebuild your system configuration
+- `hmu` - Update flake dependencies
+- `hm-clean` - Clean up old generations and optimize Nix store
+
+### Manual Commands
+
+**macOS:**
+```bash
+darwin-rebuild switch --flake ~/.config/home-manager#thomas@mac
 ```
 
-Then restart your shell
-
-## Cleanup
+**Linux:**
+```bash
+home-manager switch --flake ~/.config/home-manager#thomas@linux
 ```
+
+## Manual Cleanup
+
+If you prefer to run cleanup commands manually instead of using `hm-clean`:
+
+```bash
+# Remove old generations (keep last 7 days)
 home-manager expire-generations "-7 days"
+
+# Delete old Nix generations
 nix-env --delete-generations old
-nix store gc --dry-run
+
+# Garbage collect unused packages
+nix store gc
+
+# Optimize Nix store
 nix store optimise
 ```
-## Add to the zshrc
+
+## Configuration Structure
+
 ```
-      # Source Nix
-      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-      fi
-      
-      # Source home-manager session variables
-      if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      fi
+.
+├── flake.nix                    # Main flake configuration
+├── flake.lock                   # Locked dependency versions
+├── darwin/
+│   └── configuration.nix        # macOS-specific settings (nix-darwin)
+└── modules/
+    ├── home.nix                 # Home-manager entry point
+    └── packages/
+        ├── common.nix           # Cross-platform packages
+        ├── darwin.nix           # macOS-specific packages
+        ├── linux.nix            # Linux-specific packages
+        ├── gui.nix              # GUI applications
+        └── shell/               # Shell configuration (zsh, aliases, etc.)
 ```
