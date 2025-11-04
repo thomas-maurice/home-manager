@@ -9,9 +9,6 @@
 
   nixpkgs.config.allowUnsupportedSystem = true;
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-  ];
 
   system.primaryUser = "thomas";
 
