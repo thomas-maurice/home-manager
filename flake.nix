@@ -23,10 +23,14 @@
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
-    }; 
+    };
+    nvim-config = {
+      url = "github:thomas-maurice/nvim-config";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, ... }:
+  outputs = { nixpkgs, home-manager, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, nvim-config, ... }:
   let
     user = "thomas";
   in
@@ -42,6 +46,7 @@
         extraSpecialArgs = {
           username = "thomas";
           system = "x86_64-linux";
+          inherit nvim-config;
         };
       };
     };
@@ -78,6 +83,7 @@
           home-manager.extraSpecialArgs = {
             username = "thomas";
             system = "aarch64-darwin";
+            inherit nvim-config;
           };
         }
       ];

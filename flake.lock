@@ -141,6 +141,22 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762168214,
+        "narHash": "sha256-38uoBVzrF1FYXYAkEkjLQhsceM+ZTUY934bXAso1YGY=",
+        "owner": "thomas-maurice",
+        "repo": "nvim-config",
+        "rev": "65caa52ef48654c0ba5b21e987c7f18e77090313",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thomas-maurice",
+        "repo": "nvim-config",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -149,7 +165,8 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nvim-config": "nvim-config"
       }
     }
   },

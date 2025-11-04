@@ -1,4 +1,4 @@
-{ config, pkgs, username, system, ... }:
+{ config, pkgs, username, system, nvim-config ? null, ... }:
 
 # don't forget to source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh in 
 # the .zshrc
@@ -19,6 +19,25 @@ in {
   ]
     ++ (if isLinux then [ ./packages/linux.nix ] else [ ])
     ++ (if isDarwin then [ ./packages/darwin.nix ] else [ ]);
+
+  # Clone nvim config from git repo (writable)
+  home.activation.cloneNvimConfig = if nvim-config != null then
+    config.lib.dag.entryAfter ["writeBoundary"] ''
+      NVIM_DIR="$HOME/.config/nvim"
+      NVIM_REPO="https://github.com/thomas-maurice/nvim-config.git"
+
+      # If nvim config doesn't exist or isn't a git repo, clone it
+      if [ ! -d "$NVIM_DIR/.git" ]; then
+        $DRY_RUN_CMD rm -rf "$NVIM_DIR"
+        $DRY_RUN_CMD ${pkgs.git}/bin/git clone "$NVIM_REPO" "$NVIM_DIR"
+        echo "Cloned nvim config to $NVIM_DIR"
+      else
+        # If it exists, just fetch updates (but don't auto-merge)
+        echo "Nvim config already exists at $NVIM_DIR, skipping clone"
+        echo "Run 'cd ~/.config/nvim && git pull' to update manually if needed"
+      fi
+    ''
+  else "";
 
   programs.home-manager.enable = true;
 }

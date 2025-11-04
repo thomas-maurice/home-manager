@@ -6,7 +6,12 @@
       "Bash(git log:*)",
       "Bash(git commit:*)",
       "Bash(git push)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(sudo rm:*)",
+      "Bash(test:*)",
+      "Bash(readlink:*)",
+      "Bash(nix flake update:*)",
+      "Bash(drs:*)"
     ],
     "deny": [],
     "ask": []
