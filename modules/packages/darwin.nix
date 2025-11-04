@@ -2,14 +2,8 @@
 
 {
   # macOS-only packages
-  home.packages = with pkgs; [
-    ghostty
-    spotify
-    vscode
-  ];
+  home.packages = with pkgs; [ caffeine ghostty spotify vscode ];
 
-  homebrew.masApps = {
-    "wireguard" = 1451685025;
-  };
+  homebrew.masApps = { "wireguard" = 1451685025; };
 }
 
