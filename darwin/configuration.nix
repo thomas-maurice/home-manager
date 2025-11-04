@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  username,
-  system,
-  ...
-}:
+{ config, pkgs, username, system, ... }:
 
 {
   # Nix settings
@@ -20,38 +14,42 @@
 
   # System-wide packages
   environment.systemPackages = with pkgs; [
+    btop
+    curl
     home-manager
+    htop
     git
+    vim
+    wget
   ];
 
   # Create aliases for GUI apps in /Applications/Nix Apps
   # This makes them discoverable by Spotlight
-  system.activationScripts.applications.text =
-    let
-      env = pkgs.buildEnv {
-        name = "system-applications";
-        paths = config.environment.systemPackages;
-        pathsToLink = "/Applications";
-      };
-    in
-    pkgs.lib.mkForce ''
-      # Set up applications
-      echo "setting up /Applications/Nix Apps..." >&2
-      rm -rf /Applications/Nix\ Apps
-      mkdir -p /Applications/Nix\ Apps
-      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + | 
-      while read -r src; do
-        app_name=$(basename "$src")
-        echo "copying $src" >&2
-        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-      done
-    '';
+  system.activationScripts.applications.text = let
+    env = pkgs.buildEnv {
+      name = "system-applications";
+      paths = config.environment.systemPackages;
+      pathsToLink = "/Applications";
+    };
+  in pkgs.lib.mkForce ''
+    # Set up applications
+    echo "setting up /Applications/Nix Apps..." >&2
+    rm -rf /Applications/Nix\ Apps
+    mkdir -p /Applications/Nix\ Apps
+    find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + | 
+    while read -r src; do
+      app_name=$(basename "$src")
+      echo "copying $src" >&2
+      ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+    done
+  '';
 
   # macOS system preferences
   system.defaults = {
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark"; # Enable dark mode
-      "com.apple.swipescrolldirection" = false; # Disable natural scrolling (reverse scroll direction)
+      "com.apple.swipescrolldirection" =
+        false; # Disable natural scrolling (reverse scroll direction)
     };
 
     trackpad = {
