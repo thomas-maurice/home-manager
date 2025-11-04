@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 {
   # Packages for all platforms
@@ -24,6 +19,7 @@
     htop
     jq
     lazygit
+    powerline
     pwgen
     qrencode
     rclone

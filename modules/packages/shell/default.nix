@@ -96,6 +96,9 @@ in
   # Manage the .p10k.zsh configuration file (vendored)
   home.file.".p10k.zsh".source = ./p10k.zsh;
 
+  # Tmux configuration (vendored)
+  home.file.".tmux.conf".source = ./tmux.conf;
+
   # Ghostty terminal configuration
   home.file.".config/ghostty/config".source = ./ghostty.config;
 }

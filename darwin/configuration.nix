@@ -86,6 +86,11 @@
     casks = [
       # Add your cask applications here
     ];
+
+    masApps = {
+      # App Store apps - find IDs with: nix run nixpkgs#mas -- search "app name"
+      "wireguard" = 1451685025;
+    };
   };
 
   # System state version
