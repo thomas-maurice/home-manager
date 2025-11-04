@@ -63,13 +63,8 @@
           nix-homebrew = {
             inherit user;
             enable = true;
-            taps = {
-              "homebrew/homebrew-core" = homebrew-core;
-              "homebrew/homebrew-cask" = homebrew-cask;
-              "homebrew/homebrew-bundle" = homebrew-bundle;
-            };
+            enableRosetta = true;
             mutableTaps = true;
-            autoMigrate = true;
           };
         }
 

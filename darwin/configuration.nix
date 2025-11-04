@@ -1,4 +1,10 @@
-{ config, pkgs, username, system, ... }:
+{
+  config,
+  pkgs,
+  username,
+  system,
+  ...
+}:
 
 {
   # Nix settings
@@ -13,28 +19,33 @@
   system.primaryUser = "thomas";
 
   # System-wide packages
-  environment.systemPackages = with pkgs; [ home-manager git ];
+  environment.systemPackages = with pkgs; [
+    home-manager
+    git
+  ];
 
   # Create aliases for GUI apps in /Applications/Nix Apps
   # This makes them discoverable by Spotlight
-  system.activationScripts.applications.text = let
-    env = pkgs.buildEnv {
-      name = "system-applications";
-      paths = config.environment.systemPackages;
-      pathsToLink = "/Applications";
-    };
-  in pkgs.lib.mkForce ''
-    # Set up applications
-    echo "setting up /Applications/Nix Apps..." >&2
-    rm -rf /Applications/Nix\ Apps
-    mkdir -p /Applications/Nix\ Apps
-    find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + | 
-    while read -r src; do
-      app_name=$(basename "$src")
-      echo "copying $src" >&2
-      ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-    done
-  '';
+  system.activationScripts.applications.text =
+    let
+      env = pkgs.buildEnv {
+        name = "system-applications";
+        paths = config.environment.systemPackages;
+        pathsToLink = "/Applications";
+      };
+    in
+    pkgs.lib.mkForce ''
+      # Set up applications
+      echo "setting up /Applications/Nix Apps..." >&2
+      rm -rf /Applications/Nix\ Apps
+      mkdir -p /Applications/Nix\ Apps
+      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + | 
+      while read -r src; do
+        app_name=$(basename "$src")
+        echo "copying $src" >&2
+        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+      done
+    '';
 
   # macOS system preferences
   system.defaults = {
@@ -61,7 +72,7 @@
   homebrew = {
     enable = true;
     onActivation = {
-      autoUpdate = true;
+      autoUpdate = false;
       upgrade = true;
     };
 
@@ -70,7 +81,7 @@
     ];
 
     casks = [
-      "caffeine"  # Keep Mac awake
+      "caffeine" # Keep Mac awake
     ];
 
     masApps = {
