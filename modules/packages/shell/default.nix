@@ -28,10 +28,13 @@ in
       ll = "ls -lh";
       la = "ls -a";
       l = "ls -CF";
+      vim = "nvim";
+      hmu = "nix flake update ~/.config/home-manager";
     } // (if isLinux then {
       hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux";
       hm-clean = "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
     } else {
+      hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake .#thomas@mac";
       drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake .#thomas@mac";
       hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
     });
