@@ -71,6 +71,23 @@
     nerd-fonts.roboto-mono
   ];
 
+  # Homebrew configuration
+  homebrew = {
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+    };
+
+    brews = [
+      # Add your brew packages here
+    ];
+
+    casks = [
+      # Add your cask applications here
+    ];
+  };
+
   # System state version
   system.stateVersion = 5;
 
