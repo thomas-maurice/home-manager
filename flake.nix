@@ -9,9 +9,28 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    }; 
   };
 
-  outputs = { nixpkgs, home-manager, darwin, ... }: {
+  outputs = { nixpkgs, home-manager, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, ... }:
+  let
+    user = "thomas";
+  in
+  {
     # Linux home-manager configuration
     homeConfigurations = {
       "thomas@linux" = home-manager.lib.homeManagerConfiguration {
@@ -36,6 +55,22 @@
       };
       modules = [
         ./darwin/configuration.nix
+
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            inherit user;
+            enable = true;
+            taps = {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+              "homebrew/homebrew-bundle" = homebrew-bundle;
+            };
+            mutableTaps = true;
+            autoMigrate = true;
+          };
+        }
+
         home-manager.darwinModules.home-manager
         {
           # needed otherwise nix-darwin will shit itself
