@@ -86,7 +86,7 @@
     ];
 
     casks = [
-      # Add your cask applications here
+      "caffeine"  # Keep Mac awake
     ];
 
     masApps = {
