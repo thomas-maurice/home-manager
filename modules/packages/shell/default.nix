@@ -34,8 +34,8 @@ in
       hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux";
       hm-clean = "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
     } else {
-      hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake .#thomas@mac";
-      drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake .#thomas@mac";
+      hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake ~/.config/home-manager#thomas@mac";
+      drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake ~/.config/home-manager#thomas@mac";
       hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
     });
 
