@@ -10,6 +10,8 @@
   nixpkgs.config.allowUnsupportedSystem = true;
   nixpkgs.config.allowUnfree = true;
 
+  system.primaryUser = ["thomas"]
+
   # System-wide packages
   environment.systemPackages = with pkgs; [ home-manager git ];
 
