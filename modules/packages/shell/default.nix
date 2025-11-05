@@ -96,8 +96,8 @@ in
     '';
   };
 
-  # Manage the .p10k.zsh configuration file (vendored)
-  home.file.".p10k.zsh".source = ./p10k.zsh;
+  # Manage the .p10k.zsh configuration file (vendored as out-of-store symlink)
+  home.file.".p10k.zsh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
 
   # Tmux configuration (vendored)
   home.file.".tmux.conf".source = ./tmux.conf;
