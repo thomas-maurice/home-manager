@@ -29,13 +29,13 @@ in
       la = "ls -a";
       l = "ls -CF";
       vim = "nvim";
-      hmu = "nix flake update ~/.config/home-manager";
+      hmu = "nix flake update --flake ~/.config/home-manager";
     } // (if isLinux then {
-      hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux";
+      hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux; exec zsh";
       hm-clean = "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
     } else {
-      hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake ~/.config/home-manager#thomas@mac";
-      drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --impure --flake ~/.config/home-manager#thomas@mac";
+      hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
+      drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
       hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
     });
 
@@ -99,9 +99,9 @@ in
   # Manage the .p10k.zsh configuration file (vendored as out-of-store symlink)
   home.file.".p10k.zsh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
 
-  # Tmux configuration (vendored)
-  home.file.".tmux.conf".source = ./tmux.conf;
+  # Tmux configuration (vendored as out-of-store symlink)
+  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/tmux.conf";
 
-  # Ghostty terminal configuration
-  home.file.".config/ghostty/config".source = ./ghostty.config;
+  # Ghostty terminal configuration (vendored as out-of-store symlink)
+  home.file.".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
 }
