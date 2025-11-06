@@ -35,7 +35,7 @@
     cargo
     rustc
     # qmk
-    qmk
+    # qmk
     ## editors
     neovim
     vim
