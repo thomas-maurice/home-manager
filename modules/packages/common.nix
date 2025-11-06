@@ -92,7 +92,7 @@
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''
-    if [[ -n "$oldGenPath" ]]; then
+    if [ -n "''${oldGenPath:-}" ]; then
       echo ""
       ${pkgs.nvd}/bin/nvd diff "$oldGenPath" "$newGenPath"
     else
