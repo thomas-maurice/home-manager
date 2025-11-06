@@ -1,6 +1,6 @@
 { config, pkgs, username, system, nvim-config ? null, ... }:
 
-# don't forget to source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh in 
+# don't forget to source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh in
 # the .zshrc
 
 let
@@ -17,6 +17,7 @@ in {
     ./packages/shell
     ./packages/gui.nix
     ./packages/neovim
+    ./packages/asdf
   ]
     ++ (if isLinux then [ ./packages/linux.nix ] else [ ])
     ++ (if isDarwin then [ ./packages/darwin.nix ] else [ ]);

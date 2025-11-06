@@ -5,7 +5,6 @@
   home.packages = with pkgs; [
     # general console environment
     age
-    asdf-vm
     atuin
     bat
     btop
@@ -78,8 +77,6 @@
     minio-client
     sops
     temporal-cli
-    terraform
-    vault
 
     # database stuff
     postgresql

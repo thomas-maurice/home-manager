@@ -47,6 +47,12 @@
           username = "thomas";
           system = "x86_64-linux";
           inherit nvim-config;
+          # Override asdf tools for Linux (optional)
+          # asdfTools = {
+          #   terraform = "1.14.0";
+          #   vault = "1.21.0";
+          #   python = "3.12.0";
+          # };
         };
       };
     };
@@ -84,6 +90,11 @@
             username = "thomas";
             system = "aarch64-darwin";
             inherit nvim-config;
+            # Override asdf tools for macOS (optional)
+            # asdfTools = {
+            #   terraform = "1.14.0";
+            #   vault = "1.21.0";
+            # };
           };
         }
       ];
