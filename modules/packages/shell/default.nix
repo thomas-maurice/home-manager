@@ -1,8 +1,20 @@
-{ config, pkgs, lib, system, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  system,
+  ...
+}:
 
 let
-  isLinux = builtins.elem system [ "x86_64-linux" "aarch64-linux" ];
-  isDarwin = builtins.elem system [ "x86_64-darwin" "aarch64-darwin" ];
+  isLinux = builtins.elem system [
+    "x86_64-linux"
+    "aarch64-linux"
+  ];
+  isDarwin = builtins.elem system [
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
 in
 {
   home.packages = with pkgs; [
@@ -30,14 +42,20 @@ in
       l = "ls -CF";
       vim = "nvim";
       hmu = "nix flake update --flake ~/.config/home-manager";
-    } // (if isLinux then {
-      hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux; exec zsh";
-      hm-clean = "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
-    } else {
-      hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
-      drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
-      hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
-    });
+    }
+    // (
+      if isLinux then
+        {
+          hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux; exec zsh";
+          hm-clean = "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
+        }
+      else
+        {
+          hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
+          drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
+          hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
+        }
+    );
 
     oh-my-zsh = {
       enable = true;
@@ -74,13 +92,13 @@ in
       fi
 
       ${lib.optionalString isDarwin ''
-      # Add nix-darwin system binaries to PATH
-      export PATH="/run/current-system/sw/bin:$PATH"
+        # Add nix-darwin system binaries to PATH
+        export PATH="/run/current-system/sw/bin:$PATH"
 
-      # Add Homebrew to PATH (after Nix binaries)
-      if [ -x /opt/homebrew/bin/brew ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-      fi
+        # Add Homebrew to PATH (after Nix binaries)
+        if [ -x /opt/homebrew/bin/brew ]; then
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+        fi
       ''}
 
       # Enable Powerlevel10k instant prompt
@@ -93,15 +111,22 @@ in
 
       # Source local zshrc if it exists
       [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
+
+      if [ -d $HOME/.krew ]; then 
+        export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+      fi;
     '';
   };
 
   # Manage the .p10k.zsh configuration file (vendored as out-of-store symlink)
-  home.file.".p10k.zsh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
+  home.file.".p10k.zsh".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
 
   # Tmux configuration (vendored as out-of-store symlink)
-  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/tmux.conf";
+  home.file.".tmux.conf".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/tmux.conf";
 
   # Ghostty terminal configuration (vendored as out-of-store symlink)
-  home.file.".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
+  home.file.".config/ghostty/config".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
 }

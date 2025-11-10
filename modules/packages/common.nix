@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Packages for all platforms
@@ -71,12 +76,15 @@
     k9s
     kind
     kubectl
+    kubectx
     kubelogin-oidc
     kubernetes-helm
     kustomize
+    krew
     minio-client
     sops
     temporal-cli
+    vault-bin
 
     # database stuff
     postgresql
