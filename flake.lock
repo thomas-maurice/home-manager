@@ -131,11 +131,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1763104068,
-        "narHash": "sha256-Fyz7ARem7Gu92nkq+il4miUYKr/YaLJ6vHtaX4Snc5s=",
+        "lastModified": 1763108319,
+        "narHash": "sha256-wydP/w2MvdcPwgNFnwFDAQ1pgHKrc353foojVvYFIuk=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "70f808f56095805b21e4e0f620382fd11208483c",
+        "rev": "3d59e8141568ee29812a77462f569ec30b7f6ccf",
         "type": "github"
       },
       "original": {
@@ -147,11 +147,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1763105893,
-        "narHash": "sha256-NLfqQzfGpQM2/iMGCljOzkSMNR4beAlpCx6XxFTgQtM=",
+        "lastModified": 1763109495,
+        "narHash": "sha256-cCHObkO8S5poQx37lPGZQ6L8MNPgz+xJY5xrTXeoU94=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "67bea8aee1ae2564c2ce1464709b1826cbd2bb41",
+        "rev": "2151c361e8015ce48f148b0758432412fcc801ca",
         "type": "github"
       },
       "original": {
@@ -238,11 +238,11 @@
     "nvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1762168214,
-        "narHash": "sha256-38uoBVzrF1FYXYAkEkjLQhsceM+ZTUY934bXAso1YGY=",
+        "lastModified": 1763109777,
+        "narHash": "sha256-x9fxcHJGEHBp48O0euBS3Y7BLaXXGOR/z6uw8O4tH3k=",
         "owner": "thomas-maurice",
         "repo": "nvim-config",
-        "rev": "65caa52ef48654c0ba5b21e987c7f18e77090313",
+        "rev": "ff8ad653062ed6f5b69734a9b977da16e1e1b5f6",
         "type": "github"
       },
       "original": {
