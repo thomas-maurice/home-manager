@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }:
 
+let
+  # Import GUI packages list
+  guiPackages = import ./gui.nix { inherit pkgs; };
+in
 {
   # Linux-only packages
   home.packages = with pkgs; [
@@ -8,7 +12,7 @@
     # fonts
     nerd-fonts.jetbrains-mono
     nerd-fonts.roboto-mono
-  ];
+  ] ++ guiPackages;
 
   targets.genericLinux.enable = true;
   xdg.enable = true;

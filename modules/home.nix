@@ -15,7 +15,6 @@ in {
   imports = [
     ./packages/common.nix
     ./packages/shell
-    ./packages/gui.nix
     ./packages/neovim
     ./packages/asdf
   ]

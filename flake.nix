@@ -9,6 +9,11 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.cl-nix-lite.url = "github:r4v3n6101/cl-nix-lite/url-fix";
+    };
     nix-homebrew = {
       url = "github:zhaofengli/nix-homebrew";
     };
@@ -30,7 +35,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, nvim-config, ... }:
+  outputs = { nixpkgs, home-manager, darwin, mac-app-util, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, nvim-config, ... }:
   let
     user = "thomas";
   in
@@ -96,6 +101,9 @@
             #   vault = "1.21.0";
             # };
           };
+          home-manager.sharedModules = [
+            mac-app-util.homeManagerModules.default
+          ];
         }
       ];
     };
