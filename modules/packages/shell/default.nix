@@ -26,8 +26,8 @@ in
     enableCompletion = true;
 
     sessionVariables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
     };
 
     shellAliases = {
@@ -77,8 +77,9 @@ in
     ];
 
     initContent = ''
-      if [ -f "$HOME/.nix-profile/share/asdf-vm/asdf.sh" ]; then
-        . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
+      if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
+        . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
+        #fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
       fi
 
       # Source nix daemon profile (MUST be first for PATH)
