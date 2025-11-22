@@ -62,8 +62,11 @@ in
       theme = "robbyrussell";
       plugins = [
         "git"
+        "direnv"
         "docker"
+        "kind"
         "kubectl"
+        "kubectx"
         "terraform"
       ];
     };
