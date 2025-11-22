@@ -33,6 +33,7 @@
     tree
     wget
     yq-go
+    zellij
 
     # development
     # cargo to compile rust stuff
