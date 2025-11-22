@@ -79,7 +79,7 @@ in
     initContent = ''
       if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
         . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
-        #fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
+        fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
       fi
 
       # Source nix daemon profile (MUST be first for PATH)
