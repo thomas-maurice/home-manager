@@ -4,6 +4,13 @@ Declarative dotfiles and system configuration using Nix, home-manager, and nix-d
 
 ## Quick Install
 
+**macOS Prerequisites:**
+
+Before running the installer, you must install Xcode Command Line Tools:
+```bash
+xcode-select --install
+```
+
 The installation script handles everything automatically:
 
 ```bash
@@ -73,6 +80,7 @@ nix store optimise
 .
 ├── flake.nix                    # Main flake configuration
 ├── flake.lock                   # Locked dependency versions
+├── install.sh                   # Automated installation script
 ├── darwin/
 │   └── configuration.nix        # macOS-specific settings (nix-darwin)
 └── modules/
@@ -82,5 +90,13 @@ nix store optimise
         ├── darwin.nix           # macOS-specific packages
         ├── linux.nix            # Linux-specific packages
         ├── gui.nix              # GUI applications
-        └── shell/               # Shell configuration (zsh, aliases, etc.)
+        ├── asdf/
+        │   └── default.nix      # asdf version manager configuration
+        ├── neovim/
+        │   └── default.nix      # Neovim configuration
+        └── shell/
+            ├── default.nix      # Shell configuration (zsh, aliases, etc.)
+            ├── ghostty.config   # Ghostty terminal config
+            ├── p10k.zsh         # Powerlevel10k theme config
+            └── tmux.conf        # tmux configuration
 ```

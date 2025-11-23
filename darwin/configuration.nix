@@ -1,4 +1,10 @@
-{ config, pkgs, username, system, ... }:
+{
+  config,
+  pkgs,
+  username,
+  system,
+  ...
+}:
 
 {
   # Nix settings
@@ -18,7 +24,7 @@
     curl
     home-manager
     htop
-    git
+    # git
     vim
     wget
   ];
@@ -27,8 +33,7 @@
   system.defaults = {
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark"; # Enable dark mode
-      "com.apple.swipescrolldirection" =
-        false; # Disable natural scrolling (reverse scroll direction)
+      "com.apple.swipescrolldirection" = false; # Disable natural scrolling (reverse scroll direction)
     };
 
     trackpad = {

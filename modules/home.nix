@@ -1,8 +1,5 @@
 { config, pkgs, username, system, nvim-config ? null, ... }:
 
-# don't forget to source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh in
-# the .zshrc
-
 let
   isLinux = builtins.elem system [ "x86_64-linux" "aarch64-linux" ];
   isDarwin = builtins.elem system [ "x86_64-darwin" "aarch64-darwin" ];
@@ -10,7 +7,7 @@ in {
   home.username = username;
   home.homeDirectory =
     if isDarwin then "/Users/${username}" else "/home/${username}";
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 
   imports = [
     ./packages/common.nix

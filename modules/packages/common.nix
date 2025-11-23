@@ -18,7 +18,7 @@
     direnv
     fastfetch
     fzf
-    git
+    # git
     gnupg
     htop
     jq

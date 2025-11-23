@@ -1,25 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  system,
-  ...
-}:
+{ config, pkgs, lib, system, ... }:
 
 let
-  isLinux = builtins.elem system [
-    "x86_64-linux"
-    "aarch64-linux"
-  ];
-  isDarwin = builtins.elem system [
-    "x86_64-darwin"
-    "aarch64-darwin"
-  ];
-in
-{
-  home.packages = with pkgs; [
-    zsh-powerlevel10k
-  ];
+  isLinux = builtins.elem system [ "x86_64-linux" "aarch64-linux" ];
+  isDarwin = builtins.elem system [ "x86_64-darwin" "aarch64-darwin" ];
+in {
+  home.packages = with pkgs; [ tmux zellij zsh-powerlevel10k ];
 
   programs.zsh = {
     enable = true;
@@ -42,42 +27,32 @@ in
       l = "ls -CF";
       vim = "nvim";
       hmu = "nix flake update --flake ~/.config/home-manager";
-    }
-    // (
-      if isLinux then
-        {
-          hm = "home-manager switch --flake ~/.config/home-manager#thomas@linux; exec zsh";
-          hm-clean = "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
-        }
-      else
-        {
-          hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
-          drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
-          hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
-        }
-    );
+    } // (if isLinux then {
+      hm =
+        "home-manager switch --flake ~/.config/home-manager#thomas@linux; exec zsh";
+      hm-clean =
+        "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
+    } else {
+      hm =
+        "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
+      drs =
+        "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
+      hm-clean =
+        "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
+    });
 
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins = [
-        "git"
-        "direnv"
-        "docker"
-        "kind"
-        "kubectl"
-        "kubectx"
-        "terraform"
-      ];
+      plugins =
+        [ "git" "direnv" "docker" "kind" "kubectl" "kubectx" "terraform" ];
     };
 
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-    ];
+    plugins = [{
+      name = "powerlevel10k";
+      src = pkgs.zsh-powerlevel10k;
+      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    }];
 
     initContent = ''
       if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
@@ -123,14 +98,15 @@ in
   };
 
   # Manage the .p10k.zsh configuration file (vendored as out-of-store symlink)
-  home.file.".p10k.zsh".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
+  home.file.".p10k.zsh".source = config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
 
   # Tmux configuration (vendored as out-of-store symlink)
-  home.file.".tmux.conf".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/tmux.conf";
+  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/tmux.conf";
 
   # Ghostty terminal configuration (vendored as out-of-store symlink)
   home.file.".config/ghostty/config".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
+    config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
 }
