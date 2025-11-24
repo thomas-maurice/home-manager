@@ -113,4 +113,9 @@ in {
   home.file.".config/ghostty/config".source =
     config.lib.file.mkOutOfStoreSymlink
     "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
+  
+  # Zellij configuration (vendored as out-of-store symlink)
+  home.file.".config/zellij/config.kdl".source =
+    config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/zellij-config.kdl";
 }
