@@ -45,7 +45,7 @@ in {
       enable = true;
       theme = "robbyrussell";
       plugins =
-        [ "git" "direnv" "docker" "kind" "kubectl" "kubectx" "terraform" ];
+        [ "git" "docker" "kind" "kubectl" "kubectx" "terraform" ];
     };
 
     plugins = [{
