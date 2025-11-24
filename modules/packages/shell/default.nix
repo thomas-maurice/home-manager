@@ -94,6 +94,10 @@ in {
       if [ -d $HOME/.krew ]; then 
         export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
       fi;
+
+      if which direnv 2>&1 > /dev/null; then
+        eval "$(direnv hook zsh)"
+      fi;
     '';
   };
 
