@@ -4,7 +4,13 @@ let
   isLinux = builtins.elem system [ "x86_64-linux" "aarch64-linux" ];
   isDarwin = builtins.elem system [ "x86_64-darwin" "aarch64-darwin" ];
 in {
-  home.packages = with pkgs; [ tmux zellij zsh-powerlevel10k ];
+  home.packages = with pkgs; [ atuin tmux zellij zsh-powerlevel10k ];
+
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    flags = [ "--disable-up-arrow" ];
+  };
 
   programs.zsh = {
     enable = true;
