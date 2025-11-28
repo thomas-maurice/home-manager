@@ -14,6 +14,7 @@ in {
     ./packages/shell
     ./packages/neovim
     ./packages/asdf
+    ./packages/ssh-gpg-agent
   ]
     ++ (if isLinux then [ ./packages/linux.nix ] else [ ])
     ++ (if isDarwin then [ ./packages/darwin.nix ] else [ ]);
