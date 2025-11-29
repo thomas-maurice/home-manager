@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   # Enable declarative asdf management (set to false to manage .tool-versions manually)
@@ -11,17 +16,19 @@ let
   };
 
   # Generate .tool-versions content from the mapping
-  toolVersionsContent = lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (plugin: version: "${plugin} ${version}") asdfTools);
+  toolVersionsContent = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (plugin: version: "${plugin} ${version}") asdfTools
+  );
 
   # Generate plugin installation commands
-  pluginInstallCommands = lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (plugin: version: ''
+  pluginInstallCommands = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (plugin: version: ''
       if ! asdf plugin list | grep -q "^${plugin}$"; then
         echo "Adding ${plugin} plugin..."
         $DRY_RUN_CMD asdf plugin add ${plugin} || true
       fi
-    '') asdfTools);
+    '') asdfTools
+  );
 in
 {
   # Install asdf-vm
@@ -36,7 +43,7 @@ in
 
   # Automatically install asdf plugins and versions (only if enabled)
   home.activation.installAsdfTools = lib.mkIf enableDeclarativeAsdf (
-    config.lib.dag.entryAfter ["writeBoundary"] ''
+    config.lib.dag.entryAfter [ "writeBoundary" ] ''
       if [ -f "$HOME/.nix-profile/share/asdf-vm/asdf.sh" ]; then
         export ASDF_DIR="$HOME/.nix-profile/share/asdf-vm"
         export ASDF_DATA_DIR="''${ASDF_DATA_DIR:-$HOME/.asdf}"

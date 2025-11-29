@@ -3,7 +3,7 @@
 {
   imports = [
     ../home-darwin.nix
-    
+
   ];
 
   # macOS personal specific configuration

@@ -1,4 +1,10 @@
-{ config, pkgs, username, nvim-config ? null, ... }:
+{
+  config,
+  pkgs,
+  username,
+  nvim-config ? null,
+  ...
+}:
 
 {
   # Base configuration shared across ALL systems
@@ -11,6 +17,7 @@
     ./packages/neovim
     ./packages/asdf
     ./packages/ssh-gpg-agent
+    ./packages/git
   ];
 
   programs.home-manager.enable = true;

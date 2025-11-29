@@ -3,7 +3,7 @@
 {
   imports = [
     ../home-linux.nix
-    
+
   ];
 
   # Linux desktop specific configuration

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, gpgSshKeygrips ? [], ... }:
+{
+  config,
+  pkgs,
+  lib,
+  gpgSshKeygrips ? [ ],
+  ...
+}:
 
 let
   isLinux = pkgs.stdenv.isLinux;
@@ -14,23 +20,30 @@ let
   # ];
 
   # Generate sshcontrol content from keygrips list
-  sshcontrolContent = if gpgSshKeygrips == [] then ""
-    else lib.concatMapStringsSep "\n" (entry: ''
-      # ${entry.comment}
-      ${entry.keygrip}${if entry.flags != "" then " ${entry.flags}" else ""}
-    '') gpgSshKeygrips;
+  sshcontrolContent =
+    if gpgSshKeygrips == [ ] then
+      ""
+    else
+      lib.concatMapStringsSep "\n" (entry: ''
+        # ${entry.comment}
+        ${entry.keygrip}${if entry.flags != "" then " ${entry.flags}" else ""}
+      '') gpgSshKeygrips;
 in
 {
   # Install platform-specific pinentry programs and smartcard support
-  home.packages = with pkgs; [
-    gnupg
-  ] ++ lib.optionals isLinux [
-    pinentry-gnome3
-    pcsclite   # PC/SC smartcard library (Linux only)
-    pcsc-tools # Tools for testing smartcard readers (Linux only)
-  ] ++ lib.optionals isDarwin [
-    pinentry_mac
-  ];
+  home.packages =
+    with pkgs;
+    [
+      gnupg
+    ]
+    ++ lib.optionals isLinux [
+      pinentry-gnome3
+      pcsclite # PC/SC smartcard library (Linux only)
+      pcsc-tools # Tools for testing smartcard readers (Linux only)
+    ]
+    ++ lib.optionals isDarwin [
+      pinentry_mac
+    ];
 
   # GPG configuration
   programs.gpg = {
@@ -98,7 +111,7 @@ in
   # SSH configuration to use GPG agent
   programs.ssh = {
     enable = true;
-    enableDefaultConfig = false;  # Disable auto-defaults, set explicitly below
+    enableDefaultConfig = false; # Disable auto-defaults, set explicitly below
 
     matchBlocks = {
       "github.com" = {
@@ -144,7 +157,7 @@ in
   };
 
   # Create sshcontrol file with your GPG keys (if any provided)
-  home.file.".gnupg/sshcontrol_link" = lib.mkIf (gpgSshKeygrips != []) {
+  home.file.".gnupg/sshcontrol_link" = lib.mkIf (gpgSshKeygrips != [ ]) {
     text = sshcontrolContent;
     onChange = ''
       cat ~/.gnupg/sshcontrol_link > ~/.gnupg/sshcontrol

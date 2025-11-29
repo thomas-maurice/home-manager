@@ -10,7 +10,9 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew = { url = "github:zhaofengli/nix-homebrew"; };
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+    };
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
       flake = false;
@@ -29,10 +31,22 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nix-homebrew
-    , homebrew-bundle, homebrew-core, homebrew-cask, nvim-config, ... }:
-    let user = "thomas";
-    in {
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      darwin,
+      nix-homebrew,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
+      nvim-config,
+      ...
+    }:
+    let
+      user = "thomas";
+    in
+    {
       # Linux home-manager configurations
       homeConfigurations = {
         # Linux laptop configuration
@@ -55,6 +69,9 @@
                 flags = "0";
               }
             ];
+
+            # Git signing key
+            signingKey = "0xD9D476B39F713FD1";
           };
         };
 
@@ -71,7 +88,7 @@
             inherit nvim-config;
 
             # GPG SSH keygrips for desktop (can be different from laptop)
-            gpgSshKeygrips = [];  # Example: no GPG SSH on desktop
+            gpgSshKeygrips = [ ]; # Example: no GPG SSH on desktop
           };
         };
       };
@@ -83,7 +100,9 @@
           system = "aarch64-darwin";
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
-            config = { allowUnfree = true; };
+            config = {
+              allowUnfree = true;
+            };
           };
           modules = [
             ./darwin/configuration.nix
@@ -110,7 +129,7 @@
                 inherit nvim-config;
 
                 # GPG SSH keygrips for work mac
-                gpgSshKeygrips = [];  # Example: no GPG SSH on work mac
+                gpgSshKeygrips = [ ]; # Example: no GPG SSH on work mac
               };
             }
           ];
@@ -121,7 +140,9 @@
           system = "aarch64-darwin";
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
-            config = { allowUnfree = true; };
+            config = {
+              allowUnfree = true;
+            };
           };
           modules = [
             ./darwin/configuration.nix
@@ -147,8 +168,17 @@
                 system = "aarch64-darwin";
                 inherit nvim-config;
 
-                # GPG SSH keygrips for personal mac
-                gpgSshKeygrips = [];  # Example: configure as needed
+                # GPG SSH keygrips for laptop
+                gpgSshKeygrips = [
+                  {
+                    keygrip = "A12EA21D952DB75C316811CFBB001B3577D62616";
+                    comment = "GPG SSH key for Linux laptop";
+                    flags = "0";
+                  }
+                ];
+
+                # Git signing key
+                signingKey = "0xD9D476B39F713FD1";
               };
             }
           ];
