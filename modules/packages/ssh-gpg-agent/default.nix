@@ -101,6 +101,13 @@ in
     enableDefaultConfig = false;  # Disable auto-defaults, set explicitly below
 
     matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
+        identitiesOnly = true;
+      };
+
       "*" = {
         forwardAgent = true;
         forwardX11 = false;
