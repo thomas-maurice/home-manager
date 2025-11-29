@@ -104,6 +104,14 @@ in {
       if which direnv 2>&1 > /dev/null; then
         eval "$(direnv hook zsh)"
       fi;
+
+      # Set SSH_AUTH_SOCK to use GPG agent for SSH
+      ${lib.optionalString isLinux ''
+        export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
+      ''}
+      ${lib.optionalString isDarwin ''
+        export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+      ''}
     '';
   };
 
