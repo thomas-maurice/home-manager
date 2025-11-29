@@ -84,9 +84,12 @@ in
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
+    enableExtraSocket = true;
 
     defaultCacheTtl = 3600;
+    defaultCacheTtlSsh = 3600;
     maxCacheTtl = 3600;
+    maxCacheTtlSsh = 3600;
 
     # Platform-specific pinentry program
     pinentry.package = if isLinux then pkgs.pinentry-gnome3 else pkgs.pinentry_mac;
@@ -140,6 +143,10 @@ in
       cat ~/.gnupg/sshcontrol_link > ~/.gnupg/sshcontrol
       rm ~/.gnupg/sshcontrol_link
       chmod 600 ~/.gnupg/sshcontrol
+
+      # Restart gpg-agent to pick up new sshcontrol
+      ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent || true
+      ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent || true
     '';
     force = true;
   };

@@ -36,24 +36,48 @@ exec $SHELL
 - **macOS settings**: System defaults, trackpad, dark mode, etc.
 - **Homebrew integration**: Casks and App Store apps via nix-darwin
 
+## Profiles
+
+This configuration supports multiple profiles for different machines:
+
+**Linux:**
+- `thomas@linux-laptop` - Linux laptop configuration
+- `thomas@linux-desktop` - Linux desktop configuration
+
+**macOS:**
+- `thomas@mac-work` - macOS work laptop
+- `thomas@mac-personal` - macOS personal laptop
+
+The install script automatically detects and selects the appropriate profile.
+
 ## Daily Usage
 
 After initial setup, use these aliases:
 
-- `hm` - Rebuild your system configuration
+- `hm` - Rebuild your system configuration (uses correct profile automatically)
 - `hmu` - Update flake dependencies
 - `hm-clean` - Clean up old generations and optimize Nix store
 
 ### Manual Commands
 
-**macOS:**
+**macOS work:**
 ```bash
-darwin-rebuild switch --flake ~/.config/home-manager#thomas@mac
+darwin-rebuild switch --flake ~/.config/home-manager#thomas@mac-work
 ```
 
-**Linux:**
+**macOS personal:**
 ```bash
-home-manager switch --flake ~/.config/home-manager#thomas@linux
+darwin-rebuild switch --flake ~/.config/home-manager#thomas@mac-personal
+```
+
+**Linux laptop:**
+```bash
+home-manager switch --flake ~/.config/home-manager#thomas@linux-laptop
+```
+
+**Linux desktop:**
+```bash
+home-manager switch --flake ~/.config/home-manager#thomas@linux-desktop
 ```
 
 ## Manual Cleanup
@@ -78,13 +102,20 @@ nix store optimise
 
 ```
 .
-├── flake.nix                    # Main flake configuration
+├── flake.nix                    # Main flake configuration (defines all profiles)
 ├── flake.lock                   # Locked dependency versions
 ├── install.sh                   # Automated installation script
 ├── darwin/
-│   └── configuration.nix        # macOS-specific settings (nix-darwin)
+│   └── configuration.nix        # macOS-specific system settings (nix-darwin)
 └── modules/
-    ├── home.nix                 # Home-manager entry point
+    ├── home-base.nix            # Base config shared across ALL systems
+    ├── home-linux.nix           # Linux-specific base config
+    ├── home-darwin.nix          # macOS-specific base config
+    ├── profiles/                # Profile-specific configurations
+    │   ├── linux-laptop.nix     # Linux laptop profile
+    │   ├── linux-desktop.nix    # Linux desktop profile
+    │   ├── darwin-work.nix      # macOS work profile
+    │   └── darwin-personal.nix  # macOS personal profile
     └── packages/
         ├── common.nix           # Cross-platform packages
         ├── darwin.nix           # macOS-specific packages
@@ -94,9 +125,20 @@ nix store optimise
         │   └── default.nix      # asdf version manager configuration
         ├── neovim/
         │   └── default.nix      # Neovim configuration
+        ├── ssh-gpg-agent/
+        │   └── default.nix      # GPG agent + SSH configuration
         └── shell/
             ├── default.nix      # Shell configuration (zsh, aliases, etc.)
             ├── ghostty.config   # Ghostty terminal config
             ├── p10k.zsh         # Powerlevel10k theme config
-            └── tmux.conf        # tmux configuration
+            ├── tmux.conf        # tmux configuration
+            └── zellij-config.kdl # Zellij configuration
 ```
+
+### Adding a New Profile
+
+1. Create a new profile file in `modules/profiles/` (e.g., `my-machine.nix`)
+2. Import the appropriate base (`home-linux.nix` or `home-darwin.nix`)
+3. Add profile-specific packages and settings
+4. Define the `hm` alias to point to the correct flake output
+5. Add the profile to `flake.nix` under `homeConfigurations` or `darwinConfigurations`
