@@ -1,8 +1,24 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, gpgSshKeygrips ? [], ... }:
 
 let
   isLinux = pkgs.stdenv.isLinux;
   isDarwin = pkgs.stdenv.isDarwin;
+
+  # Example keygrip structure (for documentation):
+  # gpgSshKeygrips = [
+  #   {
+  #     keygrip = "A12EA21D952DB75C316811CFBB001B3577D62616";
+  #     comment = "Ed25519 key added on: 2024-07-01 14:23:21\nFingerprints:  MD5:70:7c:59:0d:17:ed:da:45:b4:cb:93:28:b1:00:43:d0\n               SHA256:7Pwde1KORiFF8DOW/tahO3rKAL5YCNFv9pYXicRhgac";
+  #     flags = "0";  # 0 = no confirmation required
+  #   }
+  # ];
+
+  # Generate sshcontrol content from keygrips list
+  sshcontrolContent = if gpgSshKeygrips == [] then ""
+    else lib.concatMapStringsSep "\n" (entry: ''
+      # ${entry.comment}
+      ${entry.keygrip}${if entry.flags != "" then " ${entry.flags}" else ""}
+    '') gpgSshKeygrips;
 in
 {
   # Install platform-specific pinentry programs and smartcard support
@@ -117,14 +133,9 @@ in
     };
   };
 
-  # Create sshcontrol file with your GPG key
-  home.file.".gnupg/sshcontrol_link" = {
-    text = ''
-      # Ed25519 key added on: 2024-07-01 14:23:21
-      # Fingerprints:  MD5:70:7c:59:0d:17:ed:da:45:b4:cb:93:28:b1:00:43:d0
-      #                SHA256:7Pwde1KORiFF8DOW/tahO3rKAL5YCNFv9pYXicRhgac
-      A3EC6675FD626164390B17BD9EF0FD44A3F61D85 0
-    '';
+  # Create sshcontrol file with your GPG keys (if any provided)
+  home.file.".gnupg/sshcontrol_link" = lib.mkIf (gpgSshKeygrips != []) {
+    text = sshcontrolContent;
     onChange = ''
       cat ~/.gnupg/sshcontrol_link > ~/.gnupg/sshcontrol
       rm ~/.gnupg/sshcontrol_link
