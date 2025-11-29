@@ -1,10 +1,28 @@
-{ config, pkgs, lib, system, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  system,
+  ...
+}:
 
 let
-  isLinux = builtins.elem system [ "x86_64-linux" "aarch64-linux" ];
-  isDarwin = builtins.elem system [ "x86_64-darwin" "aarch64-darwin" ];
-in {
-  home.packages = with pkgs; [ atuin tmux zellij zsh-powerlevel10k ];
+  isLinux = builtins.elem system [
+    "x86_64-linux"
+    "aarch64-linux"
+  ];
+  isDarwin = builtins.elem system [
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
+in
+{
+  home.packages = with pkgs; [
+    atuin
+    tmux
+    zellij
+    zsh-powerlevel10k
+  ];
 
   programs.atuin = {
     enable = true;
@@ -40,22 +58,30 @@ in {
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins =
-        [ "git" "docker" "kind" "kubectl" "kubectx" "terraform" ];
+      plugins = [
+        "git"
+        "docker"
+        "kind"
+        "kubectl"
+        "kubectx"
+        "terraform"
+      ];
     };
 
-    plugins = [{
-      name = "powerlevel10k";
-      src = pkgs.zsh-powerlevel10k;
-      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    }];
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+    ];
 
     initContent = ''
       # Enable Powerlevel10k instant prompt
       if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
         source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi
-      
+
       if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
         . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
         fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
@@ -106,20 +132,18 @@ in {
   };
 
   # Manage the .p10k.zsh configuration file (vendored as out-of-store symlink)
-  home.file.".p10k.zsh".source = config.lib.file.mkOutOfStoreSymlink
-    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
+  home.file.".p10k.zsh".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/p10k.zsh";
 
   # Tmux configuration (vendored as out-of-store symlink)
-  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink
-    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/tmux.conf";
+  home.file.".tmux.conf".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/tmux.conf";
 
   # Ghostty terminal configuration (vendored as out-of-store symlink)
   home.file.".config/ghostty/config".source =
-    config.lib.file.mkOutOfStoreSymlink
-    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
-  
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/ghostty.config";
+
   # Zellij configuration (vendored as out-of-store symlink)
   home.file.".config/zellij/config.kdl".source =
-    config.lib.file.mkOutOfStoreSymlink
-    "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/zellij-config.kdl";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/modules/packages/shell/zellij-config.kdl";
 }

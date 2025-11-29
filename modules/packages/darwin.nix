@@ -20,7 +20,7 @@ in
   targets.darwin.copyApps = {
     enable = true;
     directory = "Applications/Home Manager Apps";
-    enableChecks = false;  # Disable permission checks (not recommended)
+    enableChecks = false; # Disable permission checks (not recommended)
   };
 
   # Disable linkApps (conflicts with copyApps)
