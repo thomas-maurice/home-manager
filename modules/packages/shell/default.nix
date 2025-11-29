@@ -61,6 +61,11 @@ in {
     }];
 
     initContent = ''
+      # Enable Powerlevel10k instant prompt
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+      
       if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
         . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
         fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
@@ -85,11 +90,6 @@ in {
           eval "$(/opt/homebrew/bin/brew shellenv)"
         fi
       ''}
-
-      # Enable Powerlevel10k instant prompt
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
 
       # Source p10k configuration
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
