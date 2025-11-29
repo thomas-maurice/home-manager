@@ -118,10 +118,13 @@ in
   };
 
   # Create sshcontrol file with your GPG key
-  home.file.".gnupg/sshcontrol".text = ''
-    # Ed25519 key added on: 2024-07-01 14:23:21
-    # Fingerprints:  MD5:70:7c:59:0d:17:ed:da:45:b4:cb:93:28:b1:00:43:d0
-    #                SHA256:7Pwde1KORiFF8DOW/tahO3rKAL5YCNFv9pYXicRhgac
-    A3EC6675FD626164390B17BD9EF0FD44A3F61D85 0
-  '';
+  home.file.".gnupg/sshcontrol" = {
+    text = ''
+      # Ed25519 key added on: 2024-07-01 14:23:21
+      # Fingerprints:  MD5:70:7c:59:0d:17:ed:da:45:b4:cb:93:28:b1:00:43:d0
+      #                SHA256:7Pwde1KORiFF8DOW/tahO3rKAL5YCNFv9pYXicRhgac
+      A3EC6675FD626164390B17BD9EF0FD44A3F61D85 0
+    '';
+    mode = "0600";  # User read/write only
+  };
 }
