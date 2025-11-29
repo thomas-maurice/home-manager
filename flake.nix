@@ -33,77 +33,126 @@
     , homebrew-bundle, homebrew-core, homebrew-cask, nvim-config, ... }:
     let user = "thomas";
     in {
-      # Linux home-manager configuration
+      # Linux home-manager configurations
       homeConfigurations = {
-        "thomas@linux" = home-manager.lib.homeManagerConfiguration {
+        # Linux laptop configuration
+        "thomas@linux-laptop" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          modules = [ ./modules/home.nix ];
+          modules = [ ./modules/profiles/linux-laptop.nix ];
           extraSpecialArgs = {
             username = "thomas";
             system = "x86_64-linux";
             inherit nvim-config;
 
-            # GPG SSH keygrips for Linux
+            # GPG SSH keygrips for laptop
             gpgSshKeygrips = [
               {
                 keygrip = "A12EA21D952DB75C316811CFBB001B3577D62616";
-                comment = "GPG SSH key for Linux";
+                comment = "GPG SSH key for Linux laptop";
                 flags = "0";
               }
             ];
+          };
+        };
 
-            # Override asdf tools for Linux (optional)
-            # asdfTools = {
-            #   terraform = "1.14.0";
-            #   vault = "1.21.0";
-            #   python = "3.12.0";
-            # };
+        # Linux desktop configuration
+        "thomas@linux-desktop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          modules = [ ./modules/profiles/linux-desktop.nix ];
+          extraSpecialArgs = {
+            username = "thomas";
+            system = "x86_64-linux";
+            inherit nvim-config;
+
+            # GPG SSH keygrips for desktop (can be different from laptop)
+            gpgSshKeygrips = [];  # Example: no GPG SSH on desktop
           };
         };
       };
 
-      # macOS nix-darwin configuration (separate from homeConfigurations!)
-      darwinConfigurations."thomas@mac" = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        pkgs = import nixpkgs {
+      # macOS nix-darwin configurations
+      darwinConfigurations = {
+        # macOS work laptop
+        "thomas@mac-work" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          config = { allowUnfree = true; };
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config = { allowUnfree = true; };
+          };
+          modules = [
+            ./darwin/configuration.nix
+
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                inherit user;
+                enable = true;
+                enableRosetta = true;
+                mutableTaps = true;
+              };
+            }
+
+            home-manager.darwinModules.home-manager
+            {
+              users.users.thomas.home = "/Users/thomas";
+
+              home-manager.useGlobalPkgs = true;
+              home-manager.users.thomas = import ./modules/profiles/darwin-work.nix;
+              home-manager.extraSpecialArgs = {
+                username = "thomas";
+                system = "aarch64-darwin";
+                inherit nvim-config;
+
+                # GPG SSH keygrips for work mac
+                gpgSshKeygrips = [];  # Example: no GPG SSH on work mac
+              };
+            }
+          ];
         };
-        modules = [
-          ./darwin/configuration.nix
 
-          nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              inherit user;
-              enable = true;
-              enableRosetta = true;
-              mutableTaps = true;
-            };
-          }
+        # macOS personal laptop
+        "thomas@mac-personal" = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config = { allowUnfree = true; };
+          };
+          modules = [
+            ./darwin/configuration.nix
 
-          home-manager.darwinModules.home-manager
-          {
-            # needed otherwise nix-darwin will shit itself
-            users.users.thomas.home = "/Users/thomas";
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                inherit user;
+                enable = true;
+                enableRosetta = true;
+                mutableTaps = true;
+              };
+            }
 
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.thomas = import ./modules/home.nix;
-            home-manager.extraSpecialArgs = {
-              username = "thomas";
-              system = "aarch64-darwin";
-              inherit nvim-config;
-              # Override asdf tools for macOS (optional)
-              # asdfTools = {
-              #   terraform = "1.14.0";
-              #   vault = "1.21.0";
-              # };
-            };
-          }
-        ];
+            home-manager.darwinModules.home-manager
+            {
+              users.users.thomas.home = "/Users/thomas";
+
+              home-manager.useGlobalPkgs = true;
+              home-manager.users.thomas = import ./modules/profiles/darwin-personal.nix;
+              home-manager.extraSpecialArgs = {
+                username = "thomas";
+                system = "aarch64-darwin";
+                inherit nvim-config;
+
+                # GPG SSH keygrips for personal mac
+                gpgSshKeygrips = [];  # Example: configure as needed
+              };
+            }
+          ];
+        };
       };
     };
 }

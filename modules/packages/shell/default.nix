@@ -22,6 +22,7 @@ in {
     };
 
     shellAliases = {
+      # Common aliases for all systems
       ls = "ls --color=auto";
       dir = "dir --color=auto";
       vdir = "vdir --color=auto";
@@ -33,19 +34,8 @@ in {
       l = "ls -CF";
       vim = "nvim";
       hmu = "nix flake update --flake ~/.config/home-manager";
-    } // (if isLinux then {
-      hm =
-        "home-manager switch --flake ~/.config/home-manager#thomas@linux; exec zsh";
-      hm-clean =
-        "home-manager expire-generations '-0 days'; nix-env --delete-generations old; nix store gc; nix store optimise";
-    } else {
-      hm =
-        "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
-      drs =
-        "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac; exec zsh";
-      hm-clean =
-        "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
-    });
+      # hm and hm-clean are profile-specific, defined in profiles/*.nix
+    };
 
     oh-my-zsh = {
       enable = true;
