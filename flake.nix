@@ -45,6 +45,16 @@
             username = "thomas";
             system = "x86_64-linux";
             inherit nvim-config;
+
+            # GPG SSH keygrips for Linux
+            gpgSshKeygrips = [
+              {
+                keygrip = "A12EA21D952DB75C316811CFBB001B3577D62616";
+                comment = "GPG SSH key for Linux";
+                flags = "0";
+              }
+            ];
+
             # Override asdf tools for Linux (optional)
             # asdfTools = {
             #   terraform = "1.14.0";

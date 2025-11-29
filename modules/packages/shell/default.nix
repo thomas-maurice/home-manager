@@ -61,6 +61,11 @@ in {
     }];
 
     initContent = ''
+      # Enable Powerlevel10k instant prompt
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+      
       if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
         . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
         fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
@@ -86,11 +91,6 @@ in {
         fi
       ''}
 
-      # Enable Powerlevel10k instant prompt
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
-
       # Source p10k configuration
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -104,6 +104,14 @@ in {
       if which direnv 2>&1 > /dev/null; then
         eval "$(direnv hook zsh)"
       fi;
+
+      # Set SSH_AUTH_SOCK to use GPG agent for SSH
+      ${lib.optionalString isLinux ''
+        export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
+      ''}
+      ${lib.optionalString isDarwin ''
+        export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+      ''}
     '';
   };
 

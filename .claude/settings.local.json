@@ -12,7 +12,9 @@
       "Bash(readlink:*)",
       "Bash(nix flake update:*)",
       "Bash(drs:*)",
-      "Bash(home-manager:*)"
+      "Bash(home-manager:*)",
+      "Bash(mv:*)",
+      "Bash(nvd diff:*)"
     ],
     "deny": [],
     "ask": []
