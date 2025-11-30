@@ -9,6 +9,7 @@
   # macOS personal specific configuration
   programs.zsh.shellAliases = {
     hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac-personal; exec zsh";
+    hmn = "home-manager news --flake ~/.config/home-manager#thomas@mac-personal";
     drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac-personal; exec zsh";
     hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
   };
