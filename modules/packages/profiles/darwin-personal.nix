@@ -14,6 +14,7 @@
       nextcloud-client
       slack
       spotify
+      syncthing-macos
       virt-manager
       vscode
     ];
