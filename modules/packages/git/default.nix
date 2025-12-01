@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  git ? {},
+  git ? { },
   ...
 }:
 
@@ -27,10 +27,10 @@ in
       user = {
         name = gitConfig.user.name;
         email = gitConfig.user.email;
+        signingkey = gitConfig.signingKey;
       };
 
       signing = lib.mkIf (gitConfig.signingKey != null) {
-        key = gitConfig.signingKey;
         signByDefault = true;
       };
 

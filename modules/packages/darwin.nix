@@ -9,10 +9,10 @@ in
   home.packages =
     with pkgs;
     [
-      mongodb-compass
-      slack
-      spotify
-      vscode
+      # mongodb-compass
+      # slack
+      # spotify
+      # vscode
     ]
     ++ guiPackages;
 
