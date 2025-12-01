@@ -2,28 +2,35 @@
   config,
   pkgs,
   lib,
-  git ? {
+  git ? {},
+  ...
+}:
+
+let
+  # Default git configuration
+  defaultGit = {
     signingKey = null;
     user = {
       name = "Thomas Maurice";
       email = "thomas@maurice.fr";
     };
-  },
-  ...
-}:
+  };
 
+  # Recursively merge provided git config with defaults
+  gitConfig = lib.recursiveUpdate defaultGit git;
+in
 {
   programs.git = {
     enable = true;
 
     settings = {
       user = {
-        name = git.user.name;
-        email = git.user.email;
+        name = gitConfig.user.name;
+        email = gitConfig.user.email;
       };
 
-      signing = lib.mkIf (git.signingKey != null) {
-        key = git.signingKey;
+      signing = lib.mkIf (gitConfig.signingKey != null) {
+        key = gitConfig.signingKey;
         signByDefault = true;
       };
 
@@ -32,7 +39,7 @@
       };
 
       commit = {
-        gpgsign = git.signingKey != null;
+        gpgsign = gitConfig.signingKey != null;
       };
 
       core = {

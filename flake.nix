@@ -61,7 +61,6 @@
             system = "x86_64-linux";
             inherit nvim-config;
 
-            # GPG SSH keygrips for laptop
             gpgSshKeygrips = [
               {
                 keygrip = "A12EA21D952DB75C316811CFBB001B3577D62616";
@@ -70,7 +69,6 @@
               }
             ];
 
-            # Git configuration
             git = {
               signingKey = "0xD9D476B39F713FD1";
               user = {
@@ -93,8 +91,21 @@
             system = "x86_64-linux";
             inherit nvim-config;
 
-            # GPG SSH keygrips for desktop (can be different from laptop)
-            gpgSshKeygrips = [ ]; # Example: no GPG SSH on desktop
+            gpgSshKeygrips = [
+              {
+                keygrip = "A12EA21D952DB75C316811CFBB001B3577D62616";
+                comment = "GPG SSH key for Linux laptop";
+                flags = "0";
+              }
+            ];
+
+            git = {
+              signingKey = "0xD9D476B39F713FD1";
+              user = {
+                name = "Thomas Maurice";
+                email = "thomas@maurice.fr";
+              };
+            };
           };
         };
       };
