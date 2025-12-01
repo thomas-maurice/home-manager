@@ -7,15 +7,15 @@
       qmk
 
       # GUI stuff
-      bitwarden-desktop
-      discord
-      element-desktop
-      kicad
-      nextcloud-client
-      slack
-      spotify
-      syncthing-macos
+      # bitwarden-desktop
+      # discord
+      # element-desktop
+      # kicad
+      # nextcloud-client
+      # slack
+      # spotify
+      # syncthing-macos
       virt-manager
-      vscode
+      # vscode
     ];
 }

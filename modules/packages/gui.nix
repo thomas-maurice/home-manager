@@ -4,7 +4,7 @@
 # This is just a list that can be imported by both darwin and linux configurations
 with pkgs;
 [
-  firefox-bin
-  google-chrome
-  keepassxc
+  # firefox-bin
+  # google-chrome
+  # keepassxc
 ]
