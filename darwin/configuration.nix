@@ -64,6 +64,7 @@
 
     casks = [
       "caffeine" # Keep Mac awake
+      "flameshot"
     ];
 
     masApps = {

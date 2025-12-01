@@ -32,6 +32,7 @@
     tmux
     tree
     wget
+    wireguard-tools
     yq-go
     zellij
 
