@@ -37,7 +37,7 @@
     };
 
     trackpad = {
-      Clicking = true; # Enable tap to click
+      Clicking = false; # Disable tap to click
     };
   };
 
