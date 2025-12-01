@@ -70,8 +70,14 @@
               }
             ];
 
-            # Git signing key
-            signingKey = "0xD9D476B39F713FD1";
+            # Git configuration
+            git = {
+              signingKey = "0xD9D476B39F713FD1";
+              user = {
+                name = "Thomas Maurice";
+                email = "thomas@maurice.fr";
+              };
+            };
           };
         };
 
@@ -128,8 +134,23 @@
                 system = "aarch64-darwin";
                 inherit nvim-config;
 
-                # GPG SSH keygrips for work mac
-                gpgSshKeygrips = [ ]; # Example: no GPG SSH on work mac
+                # GPG SSH keygrips for laptop
+                gpgSshKeygrips = [
+                  {
+                    keygrip = "FE5825898AACD0A85B53144F756E6B719294288C";
+                    comment = "GPG SSH key for Work MacOS laptop";
+                    flags = "0";
+                  }
+                ];
+
+                # Git configuration
+                git = {
+                  signingKey = "0x93279C752661EA56";
+                  user = {
+                    name = "Thomas Maurice";
+                    email = "thomas@weaviate.io";
+                  };
+                };
               };
             }
           ];
@@ -177,8 +198,14 @@
                   }
                 ];
 
-                # Git signing key
-                signingKey = "0xD9D476B39F713FD1";
+                # Git configuration
+                git = {
+                  signingKey = "0xD9D476B39F713FD1";
+                  user = {
+                    name = "Thomas Maurice";
+                    email = "thomas@maurice.fr";
+                  };
+                };
               };
             }
           ];

@@ -2,7 +2,13 @@
   config,
   pkgs,
   lib,
-  signingKey ? null,
+  git ? {
+    signingKey = null;
+    user = {
+      name = "Thomas Maurice";
+      email = "thomas@maurice.fr";
+    };
+  },
   ...
 }:
 
@@ -12,12 +18,12 @@
 
     settings = {
       user = {
-        name = "Thomas Maurice";
-        email = "thomas@maurice.fr";
+        name = git.user.name;
+        email = git.user.email;
       };
 
-      signing = lib.mkIf (signingKey != null) {
-        key = signingKey;
+      signing = lib.mkIf (git.signingKey != null) {
+        key = git.signingKey;
         signByDefault = true;
       };
 
@@ -26,7 +32,7 @@
       };
 
       commit = {
-        gpgsign = signingKey != null;
+        gpgsign = git.signingKey != null;
       };
 
       core = {
