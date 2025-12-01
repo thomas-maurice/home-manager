@@ -1,9 +1,20 @@
 { config, pkgs, ... }:
+let
+  # Override Python to use OpenSSL instead of LibreSSL
+  python3WithOpenSSL = pkgs.python3.override {
+    openssl = pkgs.openssl;
+  };
+in
 {
   home.packages = with pkgs; [
     # cli stuff
     qmk
-    ansible
+    (python3WithOpenSSL.withPackages (ps: with ps; [
+      ansible-core
+      hvac
+      cryptography
+      jinja2
+    ]))
 
     # GUI stuff
     # bitwarden-desktop
@@ -13,7 +24,7 @@
     # nextcloud-client
     # slack
     # spotify
-    # syncthing-macos
+    syncthing-macos
     virt-manager
     # vscode
   ];

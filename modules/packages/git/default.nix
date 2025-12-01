@@ -117,10 +117,6 @@ in
       "*.swp"
       "*.swo"
       "*~"
-
-      # Misc
-      ".envrc"
-      ".direnv/"
     ];
   };
 }
