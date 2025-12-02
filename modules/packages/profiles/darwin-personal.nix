@@ -1,20 +1,30 @@
 { config, pkgs, ... }:
 let
-  # Override Python to use OpenSSL instead of LibreSSL
-  python3WithOpenSSL = pkgs.python3.override {
+  # Override Python to always use OpenSSL instead of LibreSSL on macOS
+  python3 = pkgs.python3.override {
     openssl = pkgs.openssl;
   };
+
+  # Helper function to create Python environments with OpenSSL support
+  pythonWithPackages = packages: python3.withPackages packages;
 in
 {
   home.packages = with pkgs; [
     # cli stuff
     qmk
-    (python3WithOpenSSL.withPackages (ps: with ps; [
+
+    # Ansible with hvac support
+    (pythonWithPackages (ps: with ps; [
       ansible-core
       hvac
       cryptography
       jinja2
     ]))
+
+    # You can add more Python environments like this:
+    # (pythonWithPackages (ps: with ps; [ requests boto3 ]))
+    # Or just standalone python3 with OpenSSL:
+    # python3
 
     # GUI stuff
     # bitwarden-desktop
@@ -24,7 +34,6 @@ in
     # nextcloud-client
     # slack
     # spotify
-    syncthing-macos
     virt-manager
     # vscode
   ];
