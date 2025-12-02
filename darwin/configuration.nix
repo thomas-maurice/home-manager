@@ -72,6 +72,7 @@
       # App Store apps - find IDs with: nix run nixpkgs#mas -- search "app name"
       "wireguard" = 1451685025;
       "UTM Virtual Machines" = 1538878817;
+      "Hidden bar" = 1452453066;
     };
   };
 
