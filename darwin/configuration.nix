@@ -61,11 +61,15 @@
     brews = [
       # Add your brew packages here
       "openssl"
+      "asdf"
+      "ollama"
+      "python"
     ];
 
     casks = [
       "caffeine" # Keep Mac awake
       "flameshot"
+      "macos-fuse-t/homebrew-cask/fuse-t"
     ];
 
     masApps = {

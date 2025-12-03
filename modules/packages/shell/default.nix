@@ -60,6 +60,7 @@ in
       enable = true;
       theme = "robbyrussell";
       plugins = [
+        "asdf"
         # "git"
         "direnv"
         # "docker"
@@ -89,10 +90,15 @@ in
           source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
 
-        if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
-          . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
-          fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
-        fi
+        export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+        ${lib.optionalString isLinux ''
+          # on linux we still use the asdf module
+          if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
+            . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
+            fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
+          fi
+        ''}
 
         # Source nix daemon profile (MUST be first for PATH)
         if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -105,6 +111,9 @@ in
         fi
 
         ${lib.optionalString isDarwin ''
+          # set the python path so it's the darwin one
+          export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+
           # Add nix-darwin system binaries to PATH
           export PATH="/run/current-system/sw/bin:$PATH"
 
