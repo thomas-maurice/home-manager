@@ -63,6 +63,7 @@
 
     ## protobuf
     buf
+    grpcurl
     protobuf
     protobufc
     protoc-gen-connect-go
