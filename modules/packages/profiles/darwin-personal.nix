@@ -14,12 +14,14 @@ in
     qmk
 
     # Ansible with hvac support
-    (pythonWithPackages (ps: with ps; [
-      ansible-core
-      hvac
-      cryptography
-      jinja2
-    ]))
+    (pythonWithPackages (
+      ps: with ps; [
+        ansible-core
+        hvac
+        cryptography
+        jinja2
+      ]
+    ))
 
     # You can add more Python environments like this:
     # (pythonWithPackages (ps: with ps; [ requests boto3 ]))
@@ -36,5 +38,8 @@ in
     # spotify
     virt-manager
     # vscode
+
+    # LaTeX
+    texlive.combined.scheme-full
   ];
 }
