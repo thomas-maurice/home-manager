@@ -61,7 +61,6 @@
     brews = [
       # Add your brew packages here
       "openssl"
-      "asdf"
       "ollama"
       "python"
     ];

@@ -90,15 +90,8 @@ in
           source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
 
+        export ASDF_DATA_DIR="''${ASDF_DATA_DIR:-$HOME/.asdf}"
         export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
-        ${lib.optionalString isLinux ''
-          # on linux we still use the asdf module
-          if [ -f ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh ]; then
-            . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
-            fpath=(${pkgs.asdf-vm}/share/zsh/site-functions $fpath)
-          fi
-        ''}
 
         # Source nix daemon profile (MUST be first for PATH)
         if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then

@@ -15,7 +15,7 @@
     ./packages/common.nix
     ./packages/shell
     ./packages/neovim
-    # ./packages/asdf
+    ./packages/asdf
     ./packages/ssh-gpg-agent
     ./packages/git
   ];

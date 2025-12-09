@@ -40,26 +40,4 @@ in
   home.file.".tool-versions" = lib.mkIf enableDeclarativeAsdf {
     text = toolVersionsContent;
   };
-
-  # Automatically install asdf plugins and versions (only if enabled)
-  home.activation.installAsdfTools = lib.mkIf enableDeclarativeAsdf (
-    config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      if [ -f "$HOME/.nix-profile/share/asdf-vm/asdf.sh" ]; then
-        export ASDF_DIR="$HOME/.nix-profile/share/asdf-vm"
-        export ASDF_DATA_DIR="''${ASDF_DATA_DIR:-$HOME/.asdf}"
-        . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
-
-        echo "Setting up asdf tools..."
-
-        # Install plugins if not already installed
-        ${pluginInstallCommands}
-
-        # Install versions from .tool-versions
-        cd "$HOME"
-        $DRY_RUN_CMD asdf install || echo "asdf install completed with status $?"
-      else
-        echo "asdf-vm not found, skipping tool installation"
-      fi
-    ''
-  );
 }
