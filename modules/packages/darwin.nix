@@ -9,6 +9,8 @@ in
   home.packages =
     with pkgs;
     [
+      coreutils
+
       # mongodb-compass
       # slack
       # spotify
