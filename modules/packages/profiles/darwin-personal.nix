@@ -28,6 +28,9 @@ in
     # Or just standalone python3 with OpenSSL:
     # python3
 
+    # tinygo
+    tinygo
+
     # GUI stuff
     # bitwarden-desktop
     # discord
