@@ -81,7 +81,15 @@ in
 
     initContent = lib.mkMerge [
       (lib.mkBefore ''
+        # Source nix daemon profile (MUST be first for PATH)
+        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+          . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        fi
 
+        # Source home-manager session variables
+        if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+          . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+        fi
       '')
       ''
 
@@ -92,16 +100,6 @@ in
 
         export ASDF_DATA_DIR="''${ASDF_DATA_DIR:-$HOME/.asdf}"
         export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
-        # Source nix daemon profile (MUST be first for PATH)
-        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-          . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-        fi
-
-        # Source home-manager session variables
-        if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-          . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-        fi
 
         ${lib.optionalString isDarwin ''
           # set the python path so it's the darwin one
