@@ -59,10 +59,12 @@
     };
 
     brews = [
-      # Add your brew packages here
-      "openssl"
+      "ca-certificates"
+      "gh"
       "ollama"
+      "openssl"
       "python"
+      "sqlite"
     ];
 
     casks = [
