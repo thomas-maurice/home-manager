@@ -102,9 +102,6 @@ in
         export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
         ${lib.optionalString isDarwin ''
-          # set the python path so it's the darwin one
-          export PATH="$(brew --prefix python)/libexec/bin:$PATH"
-
           # Add nix-darwin system binaries to PATH
           export PATH="/run/current-system/sw/bin:$PATH"
 
@@ -112,6 +109,10 @@ in
           if [ -x /opt/homebrew/bin/brew ]; then
             eval "$(/opt/homebrew/bin/brew shellenv)"
           fi
+
+          # set the python path so it's the darwin one
+          export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+
         ''}
 
         # Source p10k configuration
