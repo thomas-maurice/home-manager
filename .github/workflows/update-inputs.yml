@@ -1,10 +1,8 @@
 name: Update Nix Flake Inputs
-
 on:
   schedule:
-    - cron: '0 4 * * *'  # Daily at 4:00 AM UTC
-  workflow_dispatch:  # Allow manual trigger
-
+    - cron: 0 4 * * 6 # Every saturday at 4:00 AM UTC
+  workflow_dispatch: # Allow manual trigger
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -13,16 +11,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Install Nix
         uses: cachix/install-nix-action@v27
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-
       - name: Update flake inputs
         run: nix flake update
-
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
