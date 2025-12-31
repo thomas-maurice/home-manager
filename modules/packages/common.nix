@@ -92,6 +92,7 @@
 
     # database stuff
     postgresql
+    natscli
 
     # nix specific things
     nil
