@@ -61,6 +61,10 @@
     gomodifytags
     gopls
 
+    ## orm stuff
+    goose
+    atlas
+
     ## protobuf
     buf
     grpcurl
