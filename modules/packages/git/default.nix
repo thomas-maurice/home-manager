@@ -117,6 +117,9 @@ in
       "*.swp"
       "*.swo"
       "*~"
+
+      # Nix direnv
+      ".direnv"
     ];
   };
 }
