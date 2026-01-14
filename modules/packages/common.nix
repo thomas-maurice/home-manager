@@ -15,7 +15,8 @@
     btop
     chezmoi
     curl
-    direnv
+    # provided through nix direnv
+    # direnv
     fastfetch
     fzf
     # git
