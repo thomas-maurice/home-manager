@@ -104,6 +104,21 @@
     nixd
     nixfmt
     nvd
+
+    # the equivalent of 'build-essentials' on ubuntu
+    # or base-devel on arch, to be able to have at least
+    # a basic c compiler available
+    autoconf
+    automake
+    bison
+    flex
+    fontforge
+    gnumake
+    gcc
+    libiconv
+    libtool
+    makeWrapper
+    pkg-config
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''
