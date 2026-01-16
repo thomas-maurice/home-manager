@@ -61,8 +61,11 @@
     brews = [
       "ca-certificates"
       "gh"
+      "hidapi"
+      "libusb"
       "ollama"
       "openssl"
+      "pkgconf"
       "python"
       "sqlite"
     ];
