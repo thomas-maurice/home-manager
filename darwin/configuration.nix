@@ -60,6 +60,7 @@
 
     brews = [
       "ca-certificates"
+      "dfu-util"
       "gh"
       "hidapi"
       "libusb"
@@ -67,6 +68,8 @@
       "openssl"
       "pkgconf"
       "python"
+      "stm32flash"
+      "stlink"
       "sqlite"
     ];
 
