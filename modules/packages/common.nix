@@ -20,6 +20,7 @@
     fastfetch
     fzf
     # git
+    gawk
     gnupg
     htop
     jq

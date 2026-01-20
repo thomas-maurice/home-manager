@@ -10,6 +10,7 @@ in
     with pkgs;
     [
       coreutils
+      findutils
       gnugrep
       gnused
 
