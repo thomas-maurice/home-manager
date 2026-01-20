@@ -10,7 +10,6 @@
     hm = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac-work; exec zsh";
     hmn = "home-manager news --flake ~/.config/home-manager#thomas@mac-work";
     drs = "sudo -H nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/home-manager#thomas@mac-work; exec zsh";
-    hm-clean = "sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system; nix store gc; nix store optimise";
   };
 
   # Example: Work-specific packages (corporate VPN, work tools, etc.)
