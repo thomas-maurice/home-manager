@@ -10,6 +10,8 @@ in
     with pkgs;
     [
       coreutils
+      gnugrep
+      gnused
 
       # mongodb-compass
       # slack
