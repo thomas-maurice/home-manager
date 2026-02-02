@@ -72,6 +72,7 @@
       "stlink"
       "sqlite"
       "oven-sh/bun/bun"
+      "uv"
     ];
 
     casks = [
