@@ -71,6 +71,7 @@
       "stm32flash"
       "stlink"
       "sqlite"
+      "oven-sh/bun/bun"
     ];
 
     casks = [
