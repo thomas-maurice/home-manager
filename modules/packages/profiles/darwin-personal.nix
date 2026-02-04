@@ -39,10 +39,11 @@ in
     # nextcloud-client
     # slack
     # spotify
-    virt-manager
+    # virt-manager
     # vscode
 
     # LaTeX
     texlive.combined.scheme-full
+    ghostscript_headless
   ];
 }
