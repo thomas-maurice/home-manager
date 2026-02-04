@@ -124,6 +124,7 @@
 
     # misc
     irssi
+    yt-dlp
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''
