@@ -121,6 +121,9 @@
     libtool
     makeWrapper
     pkg-config
+
+    # misc
+    irssi
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''
