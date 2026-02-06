@@ -85,6 +85,7 @@
     google-cloud-sdk
     k9s
     kind
+    ko
     kubectl
     kubectx
     kubelogin-oidc
@@ -92,6 +93,7 @@
     kustomize
     krew
     minio-client
+    skaffold
     sops
     temporal-cli
     vault-bin
