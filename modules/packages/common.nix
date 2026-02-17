@@ -102,6 +102,7 @@
     # database stuff
     postgresql
     natscli
+    nats-server
     nsc
 
     # nix specific things
