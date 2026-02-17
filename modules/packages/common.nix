@@ -127,6 +127,9 @@
     # misc
     irssi
     yt-dlp
+
+    # chroma for claude mem
+    python313Packages.chromadb
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''
