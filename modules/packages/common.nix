@@ -17,6 +17,7 @@
     curl
     # provided through nix direnv
     # direnv
+    devenv
     fastfetch
     fzf
     # git
