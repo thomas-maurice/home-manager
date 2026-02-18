@@ -39,16 +39,18 @@
           echo "Cloned nvim config to $NVIM_DIR"
         fi
 
-        # Sync to flake input version
-        cd "$NVIM_DIR"
-        CURRENT_REV=$(${pkgs.git}/bin/git rev-parse HEAD)
-        if [ "$CURRENT_REV" != "$FLAKE_REV" ]; then
-          echo "Syncing nvim config to flake input version: $FLAKE_REV"
-          $DRY_RUN_CMD ${pkgs.git}/bin/git fetch origin
-          $DRY_RUN_CMD ${pkgs.git}/bin/git checkout "$FLAKE_REV" || echo "Warning: Could not checkout $FLAKE_REV, staying on current revision"
-        else
-          echo "Nvim config already at flake input version: $FLAKE_REV"
-        fi
+        # Sync to flake input version (subshell to avoid leaking cwd)
+        (
+          cd "$NVIM_DIR"
+          CURRENT_REV=$(${pkgs.git}/bin/git rev-parse HEAD)
+          if [ "$CURRENT_REV" != "$FLAKE_REV" ]; then
+            echo "Syncing nvim config to flake input version: $FLAKE_REV"
+            $DRY_RUN_CMD ${pkgs.git}/bin/git fetch origin
+            $DRY_RUN_CMD ${pkgs.git}/bin/git checkout "$FLAKE_REV" || echo "Warning: Could not checkout $FLAKE_REV, staying on current revision"
+          else
+            echo "Nvim config already at flake input version: $FLAKE_REV"
+          fi
+        )
       ''
     else
       "";
