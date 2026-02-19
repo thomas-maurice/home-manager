@@ -132,6 +132,10 @@
 
     # chroma for claude mem
     python313Packages.chromadb
+
+    # Lua
+    lua5_4
+    luarocks
   ];
 
   home.activation.report-changes = lib.hm.dag.entryAnywhere ''
