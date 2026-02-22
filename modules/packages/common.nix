@@ -83,6 +83,7 @@
     awscli
     azure-cli
     consul
+    garage
     google-cloud-sdk
     k9s
     kind
