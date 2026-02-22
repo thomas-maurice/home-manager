@@ -34,6 +34,7 @@
     ripgrep
     tmux
     tree
+    unzip
     wget
     wireguard-tools
     yq-go
