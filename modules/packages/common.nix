@@ -132,6 +132,7 @@
     irssi
     # TODO: uncomment when https://github.com/nixos/nixpkgs/issues/493775 lands
     # yt-dlp
+    pandoc
 
     # chroma for claude mem
     python313Packages.chromadb
