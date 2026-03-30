@@ -92,6 +92,7 @@ in
         pullr = "!BRANCH=$(git branch | grep \\* | cut -d ' ' -f2); git pull --rebase origin $BRANCH";
         pushdev = "!BRANCH=$(git branch | grep \\* | cut -d ' ' -f2); git push origin $BRANCH";
         pushdevf = "!BRANCH=$(git branch | grep \\* | cut -d ' ' -f2); git push -f origin $BRANCH";
+        sincetag = "!git log $(git describe --tags --abbrev=0)..HEAD --oneline";
       };
     };
 
