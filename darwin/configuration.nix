@@ -64,7 +64,6 @@
       "gh"
       "hidapi"
       "libusb"
-      "ollama"
       "openssl"
       "pkgconf"
       "python"
@@ -80,6 +79,7 @@
       "claude-code"
       "flameshot"
       "macos-fuse-t/homebrew-cask/fuse-t"
+      "ollama"
     ];
 
     masApps = {
