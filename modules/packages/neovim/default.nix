@@ -9,6 +9,7 @@
   # Install neovim
   home.packages = with pkgs; [
     neovim
+    tree-sitter
   ];
 
   # Symlink nvim config from flake input (out-of-store, writable if you manage it separately)
