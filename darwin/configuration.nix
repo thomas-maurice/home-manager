@@ -79,7 +79,7 @@
       "claude-code"
       "flameshot"
       "macos-fuse-t/homebrew-cask/fuse-t"
-      "ollama"
+      "ollama-app"
     ];
 
     masApps = {
