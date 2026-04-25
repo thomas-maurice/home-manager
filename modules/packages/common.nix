@@ -4,7 +4,13 @@
   lib,
   ...
 }:
-
+let
+  # pwgen 2.08 has K&R-style function defs that clang 19+ rejects.
+  # Pin its stdenv to llvm 17 until nixpkgs ships a patch.
+  pwgen-patched = pkgs.pwgen.override {
+    stdenv = pkgs.llvmPackages_18.stdenv;
+  };
+in
 {
   # Packages for all platforms
   home.packages = with pkgs; [
@@ -27,7 +33,7 @@
     jq
     lazygit
     powerline
-    pwgen
+    pwgen-patched
     qrencode
     rclone
     rsync
