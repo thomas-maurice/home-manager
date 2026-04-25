@@ -78,6 +78,7 @@
       "caffeine" # Keep Mac awake
       "claude-code"
       "flameshot"
+      "grandperspective"
       "macos-fuse-t/homebrew-cask/fuse-t"
       "ollama-app"
     ];
