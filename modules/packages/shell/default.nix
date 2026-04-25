@@ -15,6 +15,20 @@ let
     "x86_64-darwin"
     "aarch64-darwin"
   ];
+
+  # zsh 5.9 hangs inside Nix's sandbox on macOS Tahoe (darwin25) because it
+  # reads hw.* sysctls that aren't whitelisted in the sandbox profile, so
+  # `make test-zsh` in direnv's checkPhase deadlocks. Drop the zsh test on
+  # Darwin; the rest of the suite still runs. See .notes/direnv.md.
+  direnv-patched = pkgs.direnv.overrideAttrs (
+    old: lib.optionalAttrs isDarwin {
+      checkPhase = ''
+        runHook preCheck
+        make test-go test-bash test-fish
+        runHook postCheck
+      '';
+    }
+  );
 in
 {
   home.packages = with pkgs; [
@@ -32,7 +46,8 @@ in
 
   programs.direnv = {
     enable = true;
-    enableZshIntegration = true; 
+    package = direnv-patched;
+    enableZshIntegration = true;
     nix-direnv.enable = true;
   };
 

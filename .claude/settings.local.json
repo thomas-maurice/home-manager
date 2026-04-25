@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(sw_vers)",
+      "WebFetch(domain:n8henrie.com)",
+      "Bash(nix flake *)",
+      "Bash(nix-instantiate --parse modules/packages/shell/default.nix)",
+      "Bash(nix *)",
+      "Bash(sudo -n true)",
+      "Bash(:)",
+      "Bash(nix build *)",
+      "Bash(awk '$3 == 92722 || $2 == 92722')",
+      "Bash(ps -axo pid,ppid,user,stat,wchan,command)",
+      "Bash(awk 'NR==1 || $2==92722 || $1==92722')",
+      "Bash(sudo -n sample 92722 2 -mayDie)",
+      "Bash(sample 92722 2 -mayDie)",
+      "Bash(awk '$1==351 && $4==\"0\"')"
+    ]
+  }
+}
