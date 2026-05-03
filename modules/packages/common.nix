@@ -30,6 +30,7 @@ in
     gawk
     gnupg
     htop
+    imagemagick
     jq
     lazygit
     powerline
