@@ -29,6 +29,17 @@
     wget
   ];
 
+  environment.etc = {
+    "resolver/starnet.maurice.fr".text = ''
+      nameserver 10.99.6.99
+      nameserver fc69:dead:cafe::600:99
+    '';
+    "resolver/lil.maurice.fr".text = ''
+      nameserver 10.99.6.99
+      nameserver fc69:dead:cafe::600:99
+    '';
+  };
+
   # macOS system preferences
   system.defaults = {
     NSGlobalDomain = {
