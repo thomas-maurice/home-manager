@@ -88,6 +88,7 @@
     casks = [
       "caffeine" # Keep Mac awake
       "claude-code"
+      "claude"
       "flameshot"
       "grandperspective"
       "macos-fuse-t/homebrew-cask/fuse-t"
