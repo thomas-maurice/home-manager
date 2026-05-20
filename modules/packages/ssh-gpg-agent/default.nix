@@ -113,7 +113,7 @@ in
     enable = true;
     enableDefaultConfig = false; # Disable auto-defaults, set explicitly below
 
-    matchBlocks = {
+    settings = {
       "github.com" = {
         hostname = "github.com";
         user = "git";
