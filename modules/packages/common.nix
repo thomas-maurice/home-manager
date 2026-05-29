@@ -34,7 +34,7 @@ in
     jq
     lazygit
     powerline
-    pwgen-patched
+    pwgen
     qrencode
     rclone
     rsync
