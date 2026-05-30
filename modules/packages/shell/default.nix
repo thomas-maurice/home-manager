@@ -21,7 +21,8 @@ let
   # `make test-zsh` in direnv's checkPhase deadlocks. Drop the zsh test on
   # Darwin; the rest of the suite still runs. See .notes/direnv.md.
   direnv-patched = pkgs.direnv.overrideAttrs (
-    old: lib.optionalAttrs isDarwin {
+    old:
+    lib.optionalAttrs isDarwin {
       checkPhase = ''
         runHook preCheck
         make test-go test-bash test-fish
@@ -144,6 +145,10 @@ in
 
         if [ -d $HOME/.krew ]; then 
           export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+        fi;
+
+        if [ -d $HOME/bin ]; then 
+          export PATH="''$PATH:''${HOME}/bin"
         fi;
 
         # if which direnv 2>&1 > /dev/null; then
