@@ -65,6 +65,7 @@ in
     delve
     go
     goimports-reviser
+    goreleaser
     gosimports
     gofumpt
     golangci-lint
