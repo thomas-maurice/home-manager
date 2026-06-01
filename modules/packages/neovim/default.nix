@@ -32,6 +32,10 @@
         NVIM_REPO="https://github.com/thomas-maurice/nvim-config.git"
         FLAKE_REV="${nvimRev}"
 
+        # Ensure ssh is on PATH so git can use SSH remotes (user's gitconfig
+        # rewrites github HTTPS URLs to ssh:// via insteadOf).
+        export PATH="${pkgs.openssh}/bin:$PATH"
+
         # If nvim config doesn't exist or isn't a git repo, clone it
         if [ ! -d "$NVIM_DIR/.git" ]; then
           $DRY_RUN_CMD mkdir -p "$HOME/.local/share"
