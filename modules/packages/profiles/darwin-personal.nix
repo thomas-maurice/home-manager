@@ -43,7 +43,13 @@ in
     # vscode
 
     # LaTeX
-    texliveSmall
+    (texliveSmall.withPackages (ps: [
+      ps.moderncv
+      ps.babel-french
+      ps.wrapfig
+      ps.datenumber
+      ps.lettre
+    ]))
     ghostscript_headless
   ];
 }
