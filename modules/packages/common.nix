@@ -137,7 +137,7 @@ in
     pkg-config
 
     # misc
-    ffmpeg-full
+    ffmpeg
     irssi
     yt-dlp
     pandoc

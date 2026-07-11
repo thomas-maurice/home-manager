@@ -43,7 +43,7 @@ in
     # vscode
 
     # LaTeX
-    texlive.combined.scheme-full
+    texliveSmall
     ghostscript_headless
   ];
 }
