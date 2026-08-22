@@ -201,8 +201,21 @@
                 system = "aarch64-darwin";
                 inherit nvim-config;
 
-                # GPG SSH keygrips for laptop
+                # GPG SSH keygrips for laptop.
+                # Order matters: gpg-agent advertises keys to ssh in sshcontrol
+                # order, so the plain ssh keys are offered before the GPG auth
+                # subkey.
                 gpgSshKeygrips = [
+                  {
+                    keygrip = "A3EC6675FD626164390B17BD9EF0FD44A3F61D85";
+                    comment = "ssh key ~/.ssh/id_ed25519 (thomas@thonkpad)";
+                    flags = "0";
+                  }
+                  {
+                    keygrip = "AA3CA300813B241997A207E90BBF7F07F025A194";
+                    comment = "ssh key ~/.ssh/id_rsa";
+                    flags = "0";
+                  }
                   {
                     keygrip = "A12EA21D952DB75C316811CFBB001B3577D62616";
                     comment = "GPG SSH key for Linux laptop";

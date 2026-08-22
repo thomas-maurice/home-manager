@@ -155,13 +155,11 @@ in
         #   eval "$(direnv hook zsh)"
         # fi;
 
-        # Set SSH_AUTH_SOCK to use GPG agent for SSH
-        ${lib.optionalString isLinux ''
-          export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
-        ''}
-        ${lib.optionalString isDarwin ''
-          export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-        ''}
+        # Point SSH at the gpg-agent socket. Ask gpgconf rather than hardcoding a
+        # path per platform: socketdir is /run/user/$UID/gnupg on Linux and
+        # $GNUPGHOME on macOS, it is computed at runtime, and it is not
+        # settable from gpg-agent.conf.
+        export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
       ''
     ];
   };

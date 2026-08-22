@@ -7,8 +7,8 @@
 }:
 
 let
-  isLinux = pkgs.stdenv.isLinux;
-  isDarwin = pkgs.stdenv.isDarwin;
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 
   # Example keygrip structure (for documentation):
   # gpgSshKeygrips = [
@@ -99,14 +99,31 @@ in
     enableSshSupport = true;
     enableExtraSocket = true;
 
-    defaultCacheTtl = 3600;
-    defaultCacheTtlSsh = 3600;
-    maxCacheTtl = 3600;
-    maxCacheTtlSsh = 3600;
+    # default-cache-ttl is the idle timer (resets on each use); max-cache-ttl is
+    # an absolute ceiling from first unlock that cannot be reset. Keeping them
+    # equal at 24h means one passphrase entry per day.
+    defaultCacheTtl = 86400;
+    defaultCacheTtlSsh = 86400;
+    maxCacheTtl = 86400;
+    maxCacheTtlSsh = 86400;
 
     # Platform-specific pinentry program
     pinentry.package = if isLinux then pkgs.pinentry-gnome3 else pkgs.pinentry_mac;
   };
+
+  # On Darwin, home-manager's launchd agent binds the agent sockets under
+  # /private/var/run/org.nix-community.home.gpg-agent/, but the gpgconf binary
+  # reports $GNUPGHOME (~/.gnupg) as the socketdir and there is no config option
+  # to relocate it. The two never reconcile: `gpg-agent --supervised` never
+  # creates ~/.gnupg/S.gpg-agent*, the first client auto-spawns a plain
+  # --use-standard-socket daemon there instead, and the supervised agent then
+  # exits 2 ("agent already running") on every launch. With
+  # KeepAlive.SuccessfulExit = false that respawns forever.
+  # Let GnuPG auto-spawn the standard-socket agent, which is the normal macOS
+  # mode and restarts on demand anyway. mkForce is required because HM assigns
+  # enable = true plainly, which would otherwise be a conflict rather than an
+  # override.
+  launchd.agents.gpg-agent.enable = lib.mkIf isDarwin (lib.mkForce false);
 
   # SSH configuration to use GPG agent
   programs.ssh = {

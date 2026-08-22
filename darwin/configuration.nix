@@ -100,6 +100,7 @@
       "wireguard" = 1451685025;
       "UTM Virtual Machines" = 1538878817;
       "Hidden bar" = 1452453066;
+      "Amphetamine" = 937984704;
     };
   };
 
