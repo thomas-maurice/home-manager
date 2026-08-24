@@ -52,8 +52,27 @@
     };
   };
 
-  # Enable Touch ID for sudo
-  # security.pam.enableSudoTouchIdAuth = true;
+  # Enable Touch ID for sudo. (The old security.pam.enableSudoTouchIdAuth was
+  # renamed to this.) reattach pulls in pam-reattach, without which pam_tid
+  # silently fails inside tmux panes.
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    reattach = true;
+  };
+
+  # 5 minutes is already sudo's own default, so this line changes nothing today.
+  # It is here to make the knob discoverable — the value is in minutes.
+  #
+  # Note that the more common annoyance is tty_tickets (on by default): every
+  # terminal tab and tmux pane keeps its own ticket, so a fresh pane re-prompts
+  # regardless of this timeout. Add `Defaults !tty_tickets` below to share one
+  # ticket across the whole login session instead.
+  #
+  # This option is types.nullOr types.lines and nix-darwin's terminfo module
+  # already defines it, so the definitions concatenate rather than conflict.
+  security.sudo.extraConfig = ''
+    Defaults timestamp_timeout=5
+  '';
 
   # Fonts
   fonts.packages = with pkgs; [
