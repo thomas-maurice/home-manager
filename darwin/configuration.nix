@@ -76,6 +76,8 @@
       "hidapi"
       "libusb"
       "openssl"
+      # Used as gpg-agent's pinentry-program; see modules/packages/ssh-gpg-agent.
+      "pinentry-mac"
       "pkgconf"
       "python"
       "stm32flash"

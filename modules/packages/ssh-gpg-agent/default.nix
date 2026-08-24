@@ -40,9 +40,6 @@ in
       pinentry-gnome3
       pcsclite # PC/SC smartcard library (Linux only)
       pcsc-tools # Tools for testing smartcard readers (Linux only)
-    ]
-    ++ lib.optionals isDarwin [
-      pinentry_mac
     ];
 
   # GPG configuration
@@ -107,8 +104,29 @@ in
     maxCacheTtl = 86400;
     maxCacheTtlSsh = 86400;
 
-    # Platform-specific pinentry program
-    pinentry.package = if isLinux then pkgs.pinentry-gnome3 else pkgs.pinentry_mac;
+    # Platform-specific pinentry program.
+    #
+    # On Darwin, deliberately NOT nixpkgs' pinentry_mac. pinentry-mac stores
+    # passphrases in the login keychain, and the ACL it writes binds the entry
+    # to the calling binary's cdhash (it is only ad-hoc signed, no Team ID).
+    # The nixpkgs build embeds its own store path, so every rebuild produces a
+    # new cdhash even for an identical upstream version: the saved passphrase
+    # becomes unreadable and "Save in Keychain" silently stops working. The ACL
+    # on the SSH keygrip item had accumulated five dead store paths, all
+    # status -2147415734 ("code object not found").
+    #
+    # Homebrew's pinentry-mac is ad-hoc signed too, but its content only changes
+    # on an actual pinentry-mac release rather than on every flake bump, so the
+    # keychain entry survives. Its bin/pinentry-mac is a wrapper that execs the
+    # .app bundle, and that bundle is the identity macOS records in the ACL.
+    #
+    # Setting the package to null suppresses home-manager's own
+    # pinentry-program line so extraConfig can supply the absolute path.
+    # Requires the "pinentry-mac" brew declared in darwin/configuration.nix.
+    pinentry.package = if isLinux then pkgs.pinentry-gnome3 else null;
+    extraConfig = lib.optionalString isDarwin ''
+      pinentry-program /opt/homebrew/bin/pinentry-mac
+    '';
   };
 
   # On Darwin, home-manager's launchd agent binds the agent sockets under
