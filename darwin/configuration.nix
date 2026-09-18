@@ -102,6 +102,7 @@
       "stm32flash"
       "stlink"
       "sqlite"
+      "anomalyco/tap/opencode"
       "oven-sh/bun/bun"
       "uv"
     ];
