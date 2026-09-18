@@ -113,7 +113,12 @@
       "claude"
       "grandperspective"
       "macos-fuse-t/homebrew-cask/fuse-t"
-      "ollama-app"
+      # auto_updates cask: plain `brew upgrade` skips it, and the GUI app that
+      # would self-update never runs (ollama serve is started from a terminal).
+      {
+        name = "ollama-app";
+        greedy = true;
+      }
     ];
 
     masApps = {
