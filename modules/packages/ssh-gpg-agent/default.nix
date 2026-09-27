@@ -188,6 +188,14 @@ in
         identityFile = "~/.ssh/id_ed25519";
         addKeysToAgent = "yes";
       };
+
+      "192.168.64.22" = {
+        hostname = "192.168.64.22";
+        port = 22;
+        user = "hermes";
+        identityFile = "~/.ssh/id_ed25519";
+        identityAgent = "~/.gnupg/S.gpg-agent.ssh";
+      };
     };
   };
 
