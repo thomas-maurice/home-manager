@@ -189,8 +189,8 @@ in
         addKeysToAgent = "yes";
       };
 
-      "192.168.64.22" = {
-        hostname = "192.168.64.22";
+      "jarvis.lil.maurice.fr" = {
+        hostname = "jarvis.lil.maurice.fr";
         port = 22;
         user = "hermes";
         identityFile = "~/.ssh/id_ed25519";
