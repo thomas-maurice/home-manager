@@ -89,6 +89,7 @@
     };
 
     brews = [
+      "awscli"
       "ca-certificates"
       "dfu-util"
       "gh"
@@ -108,6 +109,7 @@
     ];
 
     casks = [
+      "azure-cli"
       "caffeine" # Keep Mac awake
       "claude-code"
       "claude"

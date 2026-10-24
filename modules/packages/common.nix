@@ -89,8 +89,8 @@ in
     protoc-go-inject-tag
 
     ## cloud stuff
-    awscli
-    azure-cli
+    # awscli
+    # azure-cli
     consul
     garage
     google-cloud-sdk
@@ -103,7 +103,7 @@ in
     kubernetes-helm
     kustomize
     krew
-    minio-client
+    # minio-client
     skaffold
     sops
     temporal-cli
