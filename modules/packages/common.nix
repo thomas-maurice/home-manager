@@ -143,9 +143,6 @@ in
     pandoc
     mtr
 
-    # chroma for claude mem
-    python313Packages.chromadb
-
     # Lua
     lua5_4
     luarocks

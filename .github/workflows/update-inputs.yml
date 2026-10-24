@@ -18,6 +18,12 @@ jobs:
             experimental-features = nix-command flakes
       - name: Update flake inputs
         run: nix flake update
+      - name: Evaluate configs
+        run: |
+          nix eval --raw '.#darwinConfigurations."thomas@mac-personal".system.drvPath'
+          nix eval --raw '.#darwinConfigurations."thomas@mac-work".system.drvPath'
+          nix eval --raw '.#homeConfigurations."thomas@linux-laptop".activationPackage.drvPath'
+          nix eval --raw '.#homeConfigurations."thomas@linux-desktop".activationPackage.drvPath'
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
