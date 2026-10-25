@@ -105,6 +105,7 @@
       "sqlite"
       "anomalyco/tap/opencode"
       "oven-sh/bun/bun"
+      "ykman"
       "uv"
     ];
 
@@ -129,6 +130,7 @@
       "UTM Virtual Machines" = 1538878817;
       "Hidden bar" = 1452453066;
       "Amphetamine" = 937984704;
+      "Yubico Authenticator" = 1497506650;
     };
   };
 
