@@ -122,6 +122,7 @@
         name = "ollama-app";
         greedy = true;
       }
+      "vorssaint"
     ];
 
     masApps = {
