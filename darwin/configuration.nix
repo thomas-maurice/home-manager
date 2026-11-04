@@ -132,6 +132,7 @@
       "Hidden bar" = 1452453066;
       "Amphetamine" = 937984704;
       "Yubico Authenticator" = 1497506650;
+      "Textream" = 6800061488;
     };
   };
 
