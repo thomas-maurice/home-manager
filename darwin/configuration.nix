@@ -107,6 +107,7 @@
       "oven-sh/bun/bun"
       "ykman"
       "uv"
+      "wakeonlan"
     ];
 
     casks = [
