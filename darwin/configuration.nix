@@ -133,6 +133,7 @@
       "Amphetamine" = 937984704;
       "Yubico Authenticator" = 1497506650;
       "Textream" = 6800061488;
+      "Windows App" = 1295203466;
     };
   };
 
