@@ -48,6 +48,8 @@ in
 
     scdaemonSettings = {
       disable-ccid = true;
+      # Don't lock the card: macOS' own PIV token (keychain lookups) needs it too.
+      pcsc-shared = true;
       card-timeout = "1";
     };
 
